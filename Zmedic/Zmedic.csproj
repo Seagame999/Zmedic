@@ -121,12 +121,48 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AssetsTheme\Credits.txt" />
+    <Content Include="AssetsTheme\css\bootstrap.css" />
+    <Content Include="AssetsTheme\css\maicons.css" />
+    <Content Include="AssetsTheme\css\theme.css" />
+    <Content Include="AssetsTheme\fonts\maicons.svg" />
+    <Content Include="AssetsTheme\img\ajax-loader.gif" />
+    <Content Include="AssetsTheme\img\app_store.svg" />
+    <Content Include="AssetsTheme\img\banner-pattern.svg" />
+    <Content Include="AssetsTheme\img\bg-doctor.png" />
+    <Content Include="AssetsTheme\img\bg_image_1.jpg" />
+    <Content Include="AssetsTheme\img\blog\blog_1.jpg" />
+    <Content Include="AssetsTheme\img\blog\blog_2.jpg" />
+    <Content Include="AssetsTheme\img\blog\blog_3.jpg" />
+    <Content Include="AssetsTheme\img\blog\blog_4.jpg" />
+    <Content Include="AssetsTheme\img\blog\blog_5.jpg" />
+    <Content Include="AssetsTheme\img\doctors\doctor_1.jpg" />
+    <Content Include="AssetsTheme\img\doctors\doctor_2.jpg" />
+    <Content Include="AssetsTheme\img\doctors\doctor_3.jpg" />
+    <Content Include="AssetsTheme\img\google_play.svg" />
+    <Content Include="AssetsTheme\img\mobile_app.png" />
+    <Content Include="AssetsTheme\img\person\person_1.jpg" />
+    <Content Include="AssetsTheme\img\person\person_2.jpg" />
+    <Content Include="AssetsTheme\img\person\person_3.jpg" />
+    <Content Include="AssetsTheme\img\person\person_4.jpg" />
+    <Content Include="AssetsTheme\js\bootstrap.bundle.min.js" />
+    <Content Include="AssetsTheme\js\google-maps.js" />
+    <Content Include="AssetsTheme\js\jquery-3.5.1.min.js" />
+    <Content Include="AssetsTheme\js\theme.js" />
+    <Content Include="AssetsTheme\LICENSE.txt" />
+    <Content Include="AssetsTheme\vendor\animate\animate.css" />
+    <Content Include="AssetsTheme\vendor\owl-carousel\ajax-loader.gif" />
+    <Content Include="AssetsTheme\vendor\owl-carousel\css\owl.carousel.css" />
+    <Content Include="AssetsTheme\vendor\owl-carousel\js\owl.carousel.js" />
+    <Content Include="AssetsTheme\vendor\owl-carousel\js\owl.carousel.min.js" />
+    <Content Include="AssetsTheme\vendor\wow\wow.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -137,6 +173,9 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="AssetsTheme\fonts\maicons.eot" />
+    <Content Include="AssetsTheme\fonts\maicons.ttf" />
+    <Content Include="AssetsTheme\fonts\maicons.woff" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -159,9 +198,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Patient\PatientLabSearch.cshtml" />
+    <Content Include="Views\Patient\LabResultDate.cshtml" />
+    <Content Include="Views\Patient\Result.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

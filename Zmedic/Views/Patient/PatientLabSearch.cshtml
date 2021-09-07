@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "ตรวจสอบผล";
+}
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+
+<div class="back-to-top"></div>
+
+<div class="page-banner overlay-dark bg-image" style="background-image: url(/AssetsTheme/img/bg_image_1.jpg);">
+    <div class="banner-section">
+        <div class="container text-center wow fadeInUp">
+            <nav aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">ตรวจสอบผลแลป</li>
+                </ol>
+            </nav>
+            <h1 class="font-weight-normal">ตรวจสอบผลแลป</h1>
+        </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+</div> <!-- .page-banner -->
+
+<div class="page-section">
+    <div class="container">
+        <h1 class="text-center wow fadeInUp">กรุณาใส่ข้อมูลด้านล่าง</h1>
+
+        <form class="contact-form mt-5">
+            <div class="row mb-3">
+                <div class="col-sm-12 py-2 wow fadeInLeft">
+                    <label class="font-weight-bold" for="fullName">วัน เดือน ปี เกิด</label>
+                    <input type="date" id="dateInput" class="form-control">
+                </div>
+                <div class="col-12 py-2 wow fadeInUp">
+                    <label class="font-weight-bold" for="subject">เลข 6 หลักสุดท้ายของบัตรประชาชน</label>
+                    <input type="text" id="sixIdInput" class="form-control" placeholder="xxxxxxx123456">
+                </div>
+            </div>
+            <div class="g-recaptcha mt-3" data-sitekey="6Lc2Yk4cAAAAABNkOJprKIS1bIcZAEkypaCxPibL"></div>
+            <a href="@Url.Action("LabResultDate")" class="btn btn-primary btn-block wow zoomIn mt-3">ตรวจสอบ</a>
+            @*<button type="submit" class="btn btn-primary wow zoomIn">ตรวจสอบ</button>*@
+        </form>
+
+    </div>
+</div>

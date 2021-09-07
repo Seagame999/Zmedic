@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "ผลตรวจที่พบทั้งหมด";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="back-to-top"></div>
+
+<div class="page-banner overlay-dark bg-image" style="background-image: url(/AssetsTheme/img/bg_image_1.jpg);">
+    <div class="banner-section">
+        <div class="container text-center wow fadeInUp">
+            <nav aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("PatientLabSearch")">ตรวจสอบผลแลป</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">ผลตรวจที่พบทั้งหมด</li>
+                </ol>
+            </nav>
+            <h1 class="font-weight-normal">ผลตรวจที่พบทั้งหมด</h1>
+        </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+</div> <!-- .page-banner -->
+
+<div class="page-section">
+    <div class="container">
+        <h2>ผลตรวจที่พบทั้งหมด</h2>
+        <hr>
+        <a href="@Url.Action("Result")"><h4>[1.] วันอังคารที่ 7 เดือน กันยายน พ.ศ.2564</h4></a>
+        <hr>
+        <a href="@Url.Action("Result")"><h4>[2.] วันพุธที่ 8 เดือน กันยายน พ.ศ.2564</h4></a>
+        <hr>
+        <a href="@Url.Action("Result")"><h4>[3.] วันพฤหัสบดีที่ 9 เดือน กันยายน พ.ศ.2564</h4></a>
+        <hr>
+        <a href="@Url.Action("Result")"><h4>[4.] วันศุกร์ที่ 10 เดือน กันยายน พ.ศ.2564</h4></a>
+        <hr>
+        <a href="@Url.Action("Result")"><h4>[5.] วันเสาร์ที่ 11 เดือน กันยายน พ.ศ.2564</h4></a>
+        <hr>
+    </div>
+</div>
+
