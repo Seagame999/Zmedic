@@ -23,5 +23,31 @@
             </div>
         </div> <!-- .row -->
 
-    </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ชื่อไฟล์</th>
+                    <th>ลิ้ง</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    @foreach (var itemName in ViewBag.lstFileName)
+                    {
+                        <td>@itemName</td>
+                    }
+                    @foreach (var item in ViewBag.lstFile)
+                    {
+                        <td><a href="@item">ดาวน์โหลดPDF</a></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+        @foreach (var item in ViewBag.lstFile)
+        {
+        <iframe src="@item" style="width:500px; height:300px;"></iframe>
+        }
+        </div>
 </div>
