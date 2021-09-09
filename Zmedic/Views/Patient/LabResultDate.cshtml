@@ -22,7 +22,7 @@
 </div> <!-- .page-banner -->
 
 <div class="page-section">
-    <div class="container">
+    @*<div class="container">
         <h2>ผลตรวจที่พบทั้งหมด</h2>
         <hr>
         <a href="@Url.Action("Result")"><h4>[1.] วันอังคารที่ 7 เดือน กันยายน พ.ศ.2564</h4></a>
@@ -35,6 +35,23 @@
         <hr>
         <a href="@Url.Action("Result")"><h4>[5.] วันเสาร์ที่ 11 เดือน กันยายน พ.ศ.2564</h4></a>
         <hr>
+    </div>*@
+
+    <div class="container">
+        <h2>ผลตรวจที่พบทั้งหมด</h2>
+        <hr>
+
+        @if(ViewBag.Nodata != null)
+        {
+        <div class="text-danger">@ViewBag.Nodata</div>
+        }
+
+        @foreach (var item in ViewBag.lstFile)
+        {
+            <a href="@item.FilePdfUrl"><h4>ผลตรวจ @item.FilePdfName</h4></a>
+            <hr>
+        }
+
     </div>
 </div>
 
