@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Zmedic.Models;
 
+
 namespace Zmedic.Controllers
 {
     public class PatientController : Controller
@@ -35,8 +36,10 @@ namespace Zmedic.Controllers
             return View();
         }
 
-        public ActionResult Result()
+        public ActionResult Result(string urlPdf)
         {
+            ViewBag.urlPdf = urlPdf;
+
             return View();
         }
 
@@ -65,8 +68,8 @@ namespace Zmedic.Controllers
                     cxt.Load(list.RootFolder.Files);
                     cxt.ExecuteQuery();
                     FolderCollection fcol = list.RootFolder.Folders;
-
                     List<FilePDF> filePDFs = new List<FilePDF>();
+
                     foreach (Folder f in fcol)
                     {
                         if (f.Name == "COVID")
@@ -78,14 +81,14 @@ namespace Zmedic.Controllers
                             {
                                 if (file.Name.StartsWith(pdfFileName))
                                 {
-                                    filePDFs.Add(new FilePDF { FilePdfName = file.Name , FilePdfUrl = "https://zmedicgroup.sharepoint.com" + file.ServerRelativeUrl });
+                                    filePDFs.Add(new FilePDF { FilePdfName = file.Name, FilePdfUrl = "https://zmedicgroup.sharepoint.com" + file.ServerRelativeUrl });
                                 }
                             }
                         }
 
                         if (filePDFs.Count == 0)
                         {
-                            ViewBag.Nodata = "ไม่พบผลการตรวจ" ;
+                            ViewBag.Nodata = "ไม่พบผลการตรวจ";
                         }
 
                         ViewBag.lstFile = filePDFs;

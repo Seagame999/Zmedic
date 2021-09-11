@@ -41,14 +41,14 @@
         <h2>ผลตรวจที่พบทั้งหมด</h2>
         <hr>
 
-        @if(ViewBag.Nodata != null)
+        @if (ViewBag.Nodata != null)
         {
-        <div class="text-danger">@ViewBag.Nodata</div>
+            <div class="text-danger">@ViewBag.Nodata</div>
         }
 
         @foreach (var item in ViewBag.lstFile)
         {
-            <a href="@item.FilePdfUrl"><h4>ผลตรวจ @item.FilePdfName</h4></a>
+            <a href="@Url.Action("Result",new { urlPdf = @item.FilePdfUrl } ) " target="_blank"><h4>ผลตรวจ @item.FilePdfName</h4></a>
             <hr>
         }
 
