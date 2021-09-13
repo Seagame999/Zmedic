@@ -5,6 +5,18 @@
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
 
+<script>
+    $(document).ready(function () {
+        $("#btnSubmit").click(function () {
+            // add spinner to button
+            $(this).html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กรุณารอสักครู่...`
+            );
+        });
+    });
+</script>
+
+
 <div class="back-to-top"></div>
 
 <div class="page-banner overlay-dark bg-image" style="background-image: url(/AssetsTheme/img/bg_image_1.jpg);">
@@ -30,7 +42,7 @@
             <div class="row mb-3">
                 <div class="col-sm-12 py-2 wow fadeInLeft">
                     <label class="font-weight-bold" for="fullName">วัน เดือน ปี เกิด</label>
-                    <input type="date"  id="dateInput" name="dateInput" data-date-format="DDMMYYYY" class="form-control">
+                    <input type="date" id="dateInput" name="dateInput" data-date-format="DDMMYYYY" class="form-control">
                 </div>
                 <div class="col-12 py-2 wow fadeInUp">
                     <label class="font-weight-bold" for="subject">เลข 6 หลักสุดท้ายของบัตรประชาชน</label>
@@ -38,8 +50,8 @@
                 </div>
             </div>
             <div class="g-recaptcha mt-3" data-sitekey="6Lc2Yk4cAAAAABNkOJprKIS1bIcZAEkypaCxPibL"></div>
-            <button type="submit" class="btn btn-primary btn-block wow zoomIn mt-3">ตรวจสอบ</button>
+            <button id="btnSubmit"  type="submit" class="btn btn-primary btn-block wow zoomIn mt-3">ตรวจสอบ</button>
         }
-
     </div>
 </div>
+

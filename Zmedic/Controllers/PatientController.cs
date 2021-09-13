@@ -25,21 +25,55 @@ namespace Zmedic.Controllers
 
         public ActionResult LabResultDate(string dateInput, string sixIdInput)
         {
-            DateTime dateTime = DateTime.Parse(dateInput);
+            try
+            {
+                DateTime dateTime = DateTime.Parse(dateInput);
 
-            DateTime dateTimeAddYears = dateTime.AddYears(543);
+                DateTime dateTimeAddYears = dateTime.AddYears(543);
 
-            string dateOfBirthFileName = dateTimeAddYears.ToString("ddMMyyyy");
+                string dateOfBirthFileName = dateTimeAddYears.ToString("ddMMyyyy");
 
-            GetFileAndFolderFromSharepoint(dateOfBirthFileName + sixIdInput);
+                GetFileAndFolderFromSharepoint(dateOfBirthFileName + sixIdInput);
+
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ex = ex;
+            }
+            return View();
+        }
+
+        public ActionResult Result(string serverRelativeUrl)
+        {
+            string filePdf = DownloadFileFromSharepointToLocalServer(serverRelativeUrl);
+
+            ViewBag.filePdf = filePdf;
 
             return View();
         }
 
-        public ActionResult Result(string urlPdf)
+        public ActionResult ClearPdfFileTemp()
         {
-            ViewBag.urlPdf = urlPdf;
+            var path = Server.MapPath("~/pdfTempfile");
 
+            try
+            {
+                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(path);
+
+                foreach (System.IO.FileInfo file in di.GetFiles())
+                {
+                    file.Delete();
+                }
+                foreach (System.IO.DirectoryInfo dir in di.GetDirectories())
+                {
+                    dir.Delete(true);
+                }
+            }
+            catch(Exception ex)
+            {
+                ViewBag.ex = ex;
+            }
+            
             return View();
         }
 
@@ -81,17 +115,17 @@ namespace Zmedic.Controllers
                             {
                                 if (file.Name.StartsWith(pdfFileName))
                                 {
-                                    filePDFs.Add(new FilePDF { FilePdfName = file.Name, FilePdfUrl = "https://zmedicgroup.sharepoint.com" + file.ServerRelativeUrl });
+                                    filePDFs.Add(new FilePDF { FilePdfName = file.Name, FilePdfUrl = file.ServerRelativeUrl });
                                 }
                             }
                         }
 
-                        if (filePDFs.Count == 0)
-                        {
-                            ViewBag.Nodata = "ไม่พบผลการตรวจ";
-                        }
-
                         ViewBag.lstFile = filePDFs;
+                    }
+
+                    if (filePDFs.Count == 0)
+                    {
+                        ViewBag.Nodata = "ไม่พบผลการตรวจ";
                     }
                 }
             }
@@ -99,6 +133,37 @@ namespace Zmedic.Controllers
             {
                 ViewBag.ex = ex;
             }
+        }
+
+        public string DownloadFileFromSharepointToLocalServer(string serverRelativeUrl)
+        {
+            string userName = "sittinon@zmedicgroup.com";
+            string password = "1Q2w3e4r";
+            var securePassword = new SecureString();
+
+            foreach (char c in password)
+            {
+                securePassword.AppendChar(c);
+            }
+
+            ClientContext clientContext = new ClientContext("https://zmedicgroup.sharepoint.com/sites/ACCRESULT");
+            clientContext.Credentials = new SharePointOnlineCredentials(userName, securePassword);
+            Web web = clientContext.Web;
+            Microsoft.SharePoint.Client.File filetoDownload = web.GetFileByServerRelativeUrl(serverRelativeUrl);
+            clientContext.Load(filetoDownload);
+            clientContext.ExecuteQuery();
+            var fileRef = filetoDownload.ServerRelativeUrl;
+            var fileInfo = Microsoft.SharePoint.Client.File.OpenBinaryDirect(clientContext, fileRef);
+            var path = Server.MapPath("~/pdfTempfile");
+            var fileName = System.IO.Path.Combine(path, (string)filetoDownload.Name);
+            var fileNameURL = filetoDownload.Name;
+
+            using (var fileStream = System.IO.File.Create(fileName))
+            {
+                fileInfo.Stream.CopyTo(fileStream);
+            }
+
+            return fileNameURL;
         }
     }
 }

@@ -48,7 +48,7 @@
 
         @foreach (var item in ViewBag.lstFile)
         {
-            <a href="@Url.Action("Result",new { urlPdf = @item.FilePdfUrl } ) " target="_blank"><h4>ผลตรวจ @item.FilePdfName</h4></a>
+            <a href="@Url.Action("Result",new { ServerRelativeUrl = @item.FilePdfUrl } ) " target="_blank"><h4>ผลตรวจ @item.FilePdfName</h4></a>
             <hr>
         }
 

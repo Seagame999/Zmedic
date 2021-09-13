@@ -257,9 +257,11 @@
     <Content Include="Views\Patient\PatientLabSearch.cshtml" />
     <Content Include="Views\Patient\LabResultDate.cshtml" />
     <Content Include="Views\Patient\Result.cshtml" />
+    <Content Include="Views\Patient\ClearPdfFileTemp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="PdfTempfile\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
