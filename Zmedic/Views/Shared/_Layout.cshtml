@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@ViewBag.Title</title>
 
+    <link rel="shortcut icon" href="~/faviconAccLab.ico" type="image/x-icon">
+
+    <link rel="icon" href="~/faviconAccLab.ico" type="image/x-icon">
+
     <link rel="stylesheet" href="~/AssetsTheme/css/maicons.css">
 
     <link rel="stylesheet" href="~/AssetsTheme/css/bootstrap.css">
@@ -18,18 +22,45 @@
 </head>
 <body>
 
+    <div class="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 text-sm">
+                    <div class="site-info">
+                        <a>
+                            <span class="mai-call text-primary"></span>
+                            065 094 6562
+                        </a>
+                        <span class="divider">|</span>
+                        <a>
+                            <span class="mai-mail text-primary"></span>
+                            acc.medicallab@zmedicgroup.com
+                        </a>
+                    </div>
+                </div>
+                <div class="col-sm-4 text-right text-sm">
+                    <div class="social-mini-button">
+                        <a href="https://www.facebook.com/accmedlab" target="_blank"><span class="mai-logo-facebook-f"></span></a>
+                        <a href="#"><span class="mai-logo-twitter"></span></a>
+                        <a href="#"><span class="mai-logo-instagram"></span></a>
+                    </div>
+                </div>
+            </div> <!-- .row -->
+        </div> <!-- .container -->
+    </div> <!-- .topbar -->
+
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="@Url.Action("Index","Home")"><span class="text-primary">Z</span>-medic</a>
+            <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/AssetsTheme/img/ImgWebsite/LogoAcc.png" height="70" /></a>
 
-            <form action="#">
-                <div class="input-group input-navbar">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="icon-addon1"><span class="mai-search"></span></span>
+            @*<form action="#">
+                    <div class="input-group input-navbar">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="icon-addon1"><span class="mai-search"></span></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="Username" aria-describedby="icon-addon1">
                     </div>
-                    <input type="text" class="form-control" placeholder="ค้นหา.." aria-label="Username" aria-describedby="icon-addon1">
-                </div>
-            </form>
+                </form>*@
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -43,18 +74,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("PatientLabSearch","Patient")">ตรวจสอบผลแลป</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">สำหรับผู้ดูแล</a>
-                    </li>
+                    @*<li class="nav-item">
+                            <a class="nav-link" href="#">สำหรับผู้ดูแล</a>
+                        </li>*@
                     @*<li class="nav-item">
                             <a class="nav-link" href="blog.html">News</a>
                         </li>
                         <li class="nav-item active">
                             <a class="nav-link" href="contact.html">Contact</a>
                         </li>*@
-                    <li class="nav-item">
-                        <a class="btn btn-primary ml-lg-3" href="#">เข้าสู่ระบบ / ลงทะเบียน</a>
-                    </li>
+                    @*<li class="nav-item">
+                            <a class="btn btn-primary ml-lg-3" href="#">เข้าสู่ระบบ / ลงทะเบียน</a>
+                        </li>*@
                 </ul>
             </div> <!-- .navbar-collapse -->
         </div> <!-- .container -->

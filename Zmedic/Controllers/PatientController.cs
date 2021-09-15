@@ -12,6 +12,8 @@ namespace Zmedic.Controllers
 {
     public class PatientController : Controller
     {
+        AccZmedicEntities _context = new AccZmedicEntities();
+
         // GET: Patient
         //public ActionResult Index()
         //{

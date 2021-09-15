@@ -1,42 +1,74 @@
 ﻿@{
-    ViewBag.Title = "Zmedic Project";
+    ViewBag.Title = "ACC Medical Lab";
 }
 
 <div class="back-to-top"></div>
 
-<div class="page-section">
-    <div class="container">
-        <h1>สวัสดี  ยินดีต้อนรับสู่ หน้าหลัก . . . </h1>
-
-        <h1>.</h1>
-
-        <h1>..</h1>
-
-        <h1>...</h1>
-
-        <h1>....</h1>
-
-        <h1>.....</h1>
-
-        <h1>......</h1>
-
-        <h1>.......</h1>
-
-        <h1>........</h1>
-
-        <h1>.........</h1>
-
-        <h1>..........</h1>
-
-        <h1>@DateTime.Now</h1>
-
+<div class="page-hero bg-image overlay-dark" style="background-image: url('@Url.Content("~/AssetsTheme/img/ImgWebsite/bg.jpg")');">
+    <div class="hero-section">
+        <div class="container text-center wow zoomIn">
+            <span class="subhead">คลินิกเทคนิคการแพทย์ เอซีซี เมดิคอล แล็บ</span>
+            <h1 class="display-4">ACC Medical Lab</h1>
+            @*<a href="#" class="btn btn-primary">Let's Consult</a>*@
+        </div>
     </div>
 </div>
 
+<div class="bg-light">
+    <div class="page-section pb-0">
+        <div class="container">
+            <div class="row align-items-center">
+                <h2 class="font-weight-bold text-info">โปรโมชั่น</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <img src="~/AssetsTheme/img/ImgWebsite/post2.jpg" class="img-fluid" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .bg-light -->
+    <br>
+</div> <!-- .bg-light -->
+
+<div class="page-section">
+    <div class="container">
+        <h2 class="font-weight-bold text-info">บริการห้องปฎิบัติการทางการแพทย์</h2>
+        <div class="card">
+            <div class="card-body">
+                <img src="~/AssetsTheme/img/ImgWebsite/post1.jpg" class="img-fluid" />
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-body">
+                <img src="~/AssetsTheme/img/ImgWebsite/post3.jpg" class="img-fluid" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <footer class="page-footer">
     <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h5>ติดต่อ</h5>
+                <p class="mt-3">
+                    เลขที่ 592/242 ถนนลาดปลาเค้า แขวงจรเข้บัว เขตลาดพร้าว กรุงเทพมหานคร 10230
+                </p>
+            </div>
+            <div class="col-6">
+                <h5>ออนไลน์</h5>
+                <div class="footer-sosmed mt-3">
+                    <a href="https://www.facebook.com/accmedlab" target="_blank"><span class="mai-logo-facebook-f"></span></a>
+                    <a href="#"><span class="mai-logo-twitter"></span></a>
+                    <a href="#"><span class="mai-logo-instagram"></span></a>
+                </div>
+            </div>
+        </div>
         <hr>
-        <p id="copyright">Copyright &copy; 2021 Z-medic-Project</p>
+        <p id="copyright">Copyright &copy; 2021 Acc-Medical-Lab-Project || @DateTime.Now</p>
     </div>
 </footer>
 

@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AccZmedicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Status" Type="bit" />
+          <Property Name="User" Type="nvarchar" MaxLength="150" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="Role" Type="int" />
+          <Property Name="Timestamp" Type="date" />
+        </EntityType>
+        <EntityType Name="Master_template">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Status" Type="bit" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Prefix" Type="nvarchar" MaxLength="30" />
+          <Property Name="First_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Last_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="ID_Passport" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="AGE" Type="varchar" MaxLength="50" />
+          <Property Name="Sex" Type="varchar" MaxLength="50" />
+          <Property Name="Collected_Date" Type="date" />
+          <Property Name="Specimen" Type="varchar(max)" />
+          <Property Name="Hospital_Clinic" Type="nvarchar" MaxLength="100" />
+          <Property Name="Doctor" Type="varchar" MaxLength="50" />
+          <Property Name="VN" Type="varchar" MaxLength="200" />
+          <Property Name="LN" Type="varchar" MaxLength="200" />
+          <Property Name="HN" Type="varchar" MaxLength="200" />
+          <Property Name="N_gene_Ct" Type="varchar" MaxLength="200" />
+          <Property Name="S_gene_Ct" Type="varchar" MaxLength="200" />
+          <Property Name="Date_start" Type="varchar" MaxLength="200" />
+          <Property Name="Time_Start" Type="varchar" MaxLength="200" />
+          <Property Name="Date_Finish" Type="varchar" MaxLength="200" />
+          <Property Name="Time_Finish" Type="varchar" MaxLength="200" />
+          <Property Name="Result" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Data_Status" Type="bit" />
+          <Property Name="ID_Passport" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="LN" Type="nvarchar" MaxLength="50" />
+          <Property Name="Collected_Date" Type="date" />
+          <Property Name="File_Name" Type="nvarchar(max)" />
+          <Property Name="Time_stamp" Type="date" />
+        </EntityType>
+        <EntityType Name="Upload">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Upload_Date" Type="date" />
+          <Property Name="Upload_file_name" Type="nvarchar(max)" />
+          <Property Name="Number of Records" Type="int" />
+          <Property Name="Number of Success" Type="int" />
+          <Property Name="Number of Fails" Type="int" />
+          <Property Name="User" Type="nvarchar(max)" />
+          <Property Name="Upload_Reuslt" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityContainer Name="AccZmedicModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Master_template" EntityType="Self.Master_template" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Upload" EntityType="Self.Upload" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AccZmedicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Status" Type="Boolean" />
+          <Property Name="User" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="Timestamp" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Master_template">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Status" Type="Boolean" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Prefix" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="First_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Last_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="AGE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Collected_Date" Type="DateTime" Precision="0" />
+          <Property Name="Specimen" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Hospital_Clinic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="VN" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LN" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="HN" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="N_gene_Ct" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="S_gene_Ct" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Date_start" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Time_Start" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Date_Finish" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Time_Finish" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Data_Status" Type="Boolean" />
+          <Property Name="ID_Passport" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="LN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Collected_Date" Type="DateTime" Precision="0" />
+          <Property Name="File_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Time_stamp" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Upload">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Upload_Date" Type="DateTime" Precision="0" />
+          <Property Name="Upload_file_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Number_of_Records" Type="Int32" />
+          <Property Name="Number_of_Success" Type="Int32" />
+          <Property Name="Number_of_Fails" Type="Int32" />
+          <Property Name="User" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Upload_Reuslt" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="AccZmedicEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admin" EntityType="Self.Admin" />
+          <EntitySet Name="Master_template" EntityType="Self.Master_template" />
+          <EntitySet Name="Patient" EntityType="Self.Patient" />
+          <EntitySet Name="Upload" EntityType="Self.Upload" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AccZmedicModelStoreContainer" CdmEntityContainer="AccZmedicEntities">
+          <EntitySetMapping Name="Admin">
+            <EntityTypeMapping TypeName="AccZmedicModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Data_Status" ColumnName="Data_Status" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Master_template">
+            <EntityTypeMapping TypeName="AccZmedicModel.Master_template">
+              <MappingFragment StoreEntitySet="Master_template">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Data_Status" ColumnName="Data_Status" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Prefix" ColumnName="Prefix" />
+                <ScalarProperty Name="First_Name" ColumnName="First_Name" />
+                <ScalarProperty Name="Last_Name" ColumnName="Last_Name" />
+                <ScalarProperty Name="ID_Passport" ColumnName="ID_Passport" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="AGE" ColumnName="AGE" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Collected_Date" ColumnName="Collected_Date" />
+                <ScalarProperty Name="Specimen" ColumnName="Specimen" />
+                <ScalarProperty Name="Hospital_Clinic" ColumnName="Hospital_Clinic" />
+                <ScalarProperty Name="Doctor" ColumnName="Doctor" />
+                <ScalarProperty Name="VN" ColumnName="VN" />
+                <ScalarProperty Name="LN" ColumnName="LN" />
+                <ScalarProperty Name="HN" ColumnName="HN" />
+                <ScalarProperty Name="N_gene_Ct" ColumnName="N_gene_Ct" />
+                <ScalarProperty Name="S_gene_Ct" ColumnName="S_gene_Ct" />
+                <ScalarProperty Name="Date_start" ColumnName="Date_start" />
+                <ScalarProperty Name="Time_Start" ColumnName="Time_Start" />
+                <ScalarProperty Name="Date_Finish" ColumnName="Date_Finish" />
+                <ScalarProperty Name="Time_Finish" ColumnName="Time_Finish" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patient">
+            <EntityTypeMapping TypeName="AccZmedicModel.Patient">
+              <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Data_Status" ColumnName="Data_Status" />
+                <ScalarProperty Name="ID_Passport" ColumnName="ID_Passport" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="LN" ColumnName="LN" />
+                <ScalarProperty Name="Collected_Date" ColumnName="Collected_Date" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="Time_stamp" ColumnName="Time_stamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Upload">
+            <EntityTypeMapping TypeName="AccZmedicModel.Upload">
+              <MappingFragment StoreEntitySet="Upload">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Upload_Date" ColumnName="Upload_Date" />
+                <ScalarProperty Name="Upload_file_name" ColumnName="Upload_file_name" />
+                <ScalarProperty Name="Number_of_Records" ColumnName="Number of Records" />
+                <ScalarProperty Name="Number_of_Success" ColumnName="Number of Success" />
+                <ScalarProperty Name="Number_of_Fails" ColumnName="Number of Fails" />
+                <ScalarProperty Name="User" ColumnName="User" />
+                <ScalarProperty Name="Upload_Reuslt" ColumnName="Upload_Reuslt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
