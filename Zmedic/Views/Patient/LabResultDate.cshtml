@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<Zmedic.Models.Patient>
 @{
     ViewBag.Title = "ผลตรวจที่พบทั้งหมด";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,21 +22,6 @@
 </div> <!-- .page-banner -->
 
 <div class="page-section">
-    @*<div class="container">
-        <h2>ผลตรวจที่พบทั้งหมด</h2>
-        <hr>
-        <a href="@Url.Action("Result")"><h4>[1.] วันอังคารที่ 7 เดือน กันยายน พ.ศ.2564</h4></a>
-        <hr>
-        <a href="@Url.Action("Result")"><h4>[2.] วันพุธที่ 8 เดือน กันยายน พ.ศ.2564</h4></a>
-        <hr>
-        <a href="@Url.Action("Result")"><h4>[3.] วันพฤหัสบดีที่ 9 เดือน กันยายน พ.ศ.2564</h4></a>
-        <hr>
-        <a href="@Url.Action("Result")"><h4>[4.] วันศุกร์ที่ 10 เดือน กันยายน พ.ศ.2564</h4></a>
-        <hr>
-        <a href="@Url.Action("Result")"><h4>[5.] วันเสาร์ที่ 11 เดือน กันยายน พ.ศ.2564</h4></a>
-        <hr>
-    </div>*@
-
     <div class="container">
         <h2>ผลตรวจที่พบทั้งหมด</h2>
         <hr>
@@ -46,9 +31,9 @@
             <div class="text-danger">@ViewBag.Nodata</div>
         }
 
-        @foreach (var item in ViewBag.lstFile)
+        @foreach (var item in Model)
         {
-            <a href="@Url.Action("Result",new { ServerRelativeUrl = @item.FilePdfUrl } ) " target="_blank"><h4>ผลตรวจ @item.FilePdfName</h4></a>
+            <a href="@Url.Action("Result",new { fileNamePdf = @item.File_Name } ) " target="_blank"><h4>วันที่รับการตรวจ @Convert.ToDateTime(item.Collected_Date).ToString("dd MMMM yyyy")</h4></a>
             <hr>
         }
 

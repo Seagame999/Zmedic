@@ -17,7 +17,7 @@ namespace Zmedic.Models
         public int Id { get; set; }
         public Nullable<bool> Data_Status { get; set; }
         public string ID_Passport { get; set; }
-        public Nullable<System.DateTime> DOB { get; set; }
+        public string DOB { get; set; }
         public string LN { get; set; }
         public Nullable<System.DateTime> Collected_Date { get; set; }
         public string File_Name { get; set; }

@@ -27,27 +27,44 @@ namespace Zmedic.Controllers
 
         public ActionResult LabResultDate(string dateInput, string sixIdInput)
         {
+
             try
             {
-                DateTime dateTime = DateTime.Parse(dateInput);
+                DateTime date = DateTime.Parse(dateInput).Date;
 
-                DateTime dateTimeAddYears = dateTime.AddYears(543);
+                //DateTime dateTimeAddYears = dateTime.AddYears(543);
 
-                string dateOfBirthFileName = dateTimeAddYears.ToString("ddMMyyyy");
+                string dateOfBirth = date.ToString("M/d/yyyy");
 
-                GetFileAndFolderFromSharepoint(dateOfBirthFileName + sixIdInput);
+                var patientReport = _context.Patient;
 
+                var patientReportResult = patientReport.Where(p => p.Data_Status == true
+                && p.DOB == dateOfBirth
+                && p.ID_Passport.Contains(sixIdInput)).ToList();
+
+                if (patientReportResult.Count == 0)
+                {
+                    ViewBag.Nodata = "ไม่พบผลการตรวจ";
+                }
+
+
+                return View(patientReportResult);
             }
+
             catch (Exception ex)
             {
                 ViewBag.ex = ex;
+
+                return RedirectToAction("Index", "Home");
             }
-            return View();
+
         }
 
-        public ActionResult Result(string serverRelativeUrl)
+        public ActionResult Result(string fileNamePdf)
         {
-            string filePdf = DownloadFileFromSharepointToLocalServer(serverRelativeUrl);
+            string getFileServerRelativeUrl = GetFileAndFolderFromSharepoint(fileNamePdf);
+
+            string filePdf = DownloadFileFromSharepointToLocalServer(getFileServerRelativeUrl);
 
             ViewBag.filePdf = filePdf;
 
@@ -71,19 +88,20 @@ namespace Zmedic.Controllers
                     dir.Delete(true);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ex = ex;
             }
-            
+
             return View();
         }
 
-        public void GetFileAndFolderFromSharepoint(string pdfFileName)
+        public string GetFileAndFolderFromSharepoint(string pdfFileName)
         {
             string userName = "sittinon@zmedicgroup.com";
             string password = "1Q2w3e4r";
             var securePassword = new SecureString();
+            string fileServerRelativeUrl = "";
 
             try
             {
@@ -115,25 +133,21 @@ namespace Zmedic.Controllers
                             FileCollection fileCol = f.Files;
                             foreach (File file in fileCol)
                             {
-                                if (file.Name.StartsWith(pdfFileName))
+                                if (file.Name.Contains(pdfFileName))
                                 {
-                                    filePDFs.Add(new FilePDF { FilePdfName = file.Name, FilePdfUrl = file.ServerRelativeUrl });
+                                    fileServerRelativeUrl = file.ServerRelativeUrl;
                                 }
                             }
                         }
-
-                        ViewBag.lstFile = filePDFs;
                     }
 
-                    if (filePDFs.Count == 0)
-                    {
-                        ViewBag.Nodata = "ไม่พบผลการตรวจ";
-                    }
                 }
+                return fileServerRelativeUrl;
             }
             catch (Exception ex)
             {
                 ViewBag.ex = ex;
+                return fileServerRelativeUrl;
             }
         }
 
