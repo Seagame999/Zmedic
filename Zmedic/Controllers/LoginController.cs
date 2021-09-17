@@ -52,21 +52,26 @@ namespace Zmedic.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public ActionResult ChangePassword(int id)
+        //public ActionResult ChangePassword(int id)
+        //{
+        //    Admin admin = _context.Admin.Find(id);
+
+        //    if (admin == null)
+        //    {
+        //        RedirectToAction("Index", "Login");
+        //    }
+
+        //    return View(admin);
+
+        //}
+
+        public ActionResult ChangePassword()
         {
-            Admin admin = _context.Admin.Find(id);
-
-            if (admin == null)
-            {
-                RedirectToAction("Index", "Login");
-            }
-
-            return View(admin);
-
+            return View();
         }
 
 
-        [HttpPost]
+    [HttpPost]
         public ActionResult ChangePassword(Admin admin)
         {
             if (ModelState.IsValid)

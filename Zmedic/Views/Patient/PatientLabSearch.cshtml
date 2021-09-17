@@ -16,6 +16,30 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(function () {
+        $("#sixIdInput").keyup(function () {           
+            var btnSubmit = $("#btnSubmit");            
+            if ($(this).val().trim() != "") {                
+                btnSubmit.removeAttr("disabled");
+            } else {               
+                btnSubmit.attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+
+<script>
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+</script>
+
 
 <div class="back-to-top"></div>
 
@@ -42,15 +66,15 @@
             <div class="row mb-3">
                 <div class="col-sm-12 py-2 wow fadeInLeft">
                     <label class="font-weight-bold" for="fullName">วัน เดือน ปี เกิด</label>
-                    <input type="date" id="dateInput" name="dateInput" data-date-format="DDMMYYYY" class="form-control" required>
+                    <input type="date" id="dateInput" name="dateInput" data-date-format="DDMMYYYY" class="form-control" required autocomplete="off">
                 </div>
                 <div class="col-12 py-2 wow fadeInUp">
                     <label class="font-weight-bold" for="subject">เลข 6 หลักสุดท้ายของบัตรประชาชน</label>
-                    <input type="text" id="sixIdInput" name="sixIdInput" class="form-control" placeholder="xxxxxxx123456" required>
+                    <input type="text" onkeypress="return isNumber(event)" id="sixIdInput" name="sixIdInput" class="form-control" placeholder="xxxxxxx123456" required autocomplete="off">
                 </div>
             </div>
             <div class="g-recaptcha mt-3" data-sitekey="6Lc2Yk4cAAAAABNkOJprKIS1bIcZAEkypaCxPibL"></div>
-            <button id="btnSubmit"  type="submit" class="btn btn-primary btn-block wow zoomIn mt-3">ตรวจสอบ</button>
+            <button id="btnSubmit"  type="submit" class="btn btn-primary btn-block wow zoomIn mt-3" disabled>ตรวจสอบ</button>
         }
     </div>
 </div>

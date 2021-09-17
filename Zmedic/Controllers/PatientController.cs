@@ -133,7 +133,7 @@ namespace Zmedic.Controllers
                             FileCollection fileCol = f.Files;
                             foreach (File file in fileCol)
                             {
-                                if (file.Name.Contains(pdfFileName))
+                                if (file.Name.StartsWith(pdfFileName))
                                 {
                                     fileServerRelativeUrl = file.ServerRelativeUrl;
                                 }

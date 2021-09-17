@@ -33,10 +33,25 @@
 
         @foreach (var item in Model)
         {
-            <a href="@Url.Action("Result",new { fileNamePdf = @item.File_Name } ) " target="_blank"><h4>วันที่รับการตรวจ @Convert.ToDateTime(item.Collected_Date).ToString("dd MMMM yyyy")</h4></a>
-            <hr>
-        }
+            <div class="row">
 
+                <div class="col-6">
+                    <a href="@Url.Action("Result", new { fileNamePdf = @item.File_Name }) " target="_blank"><h4>วันที่รับการตรวจ @Convert.ToDateTime(item.Collected_Date).ToString("dd MMMM yyyy")</h4></a>
+                </div>
+                <div class="col-6">
+                    @if (item.MC_File_Name == null)
+                    {<a class="text-secondary"> </a> }
+                    else
+                    {
+                        <a href="@Url.Action("Result", new { fileNamePdf = item.MC_File_Name })" target="_blank"><h4>ใบรับรองแพทย์</h4></a>
+                    }
+                </div>
+            </div>
+
+            <hr />
+        }
     </div>
 </div>
+
+
 

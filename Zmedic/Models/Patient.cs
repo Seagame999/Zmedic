@@ -22,5 +22,6 @@ namespace Zmedic.Models
         public Nullable<System.DateTime> Collected_Date { get; set; }
         public string File_Name { get; set; }
         public Nullable<System.DateTime> Time_stamp { get; set; }
+        public string MC_File_Name { get; set; }
     }
 }

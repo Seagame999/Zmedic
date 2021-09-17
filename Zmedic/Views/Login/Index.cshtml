@@ -1,8 +1,69 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "เข้าสู่ระบบ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
+<script>
+    $(document).ready(function () {
+        $("#btnLogin").click(function () {
+            // add spinner to button
+            $(this).html(
+                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กำลังเข้าสู่ระบบ...`
+            );
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#password").keyup(function () {
+            var btnSubmit = $("#btnLogin");
+            if ($(this).val().trim() != "") {
+                btnSubmit.removeAttr("disabled");
+            } else {
+                btnSubmit.attr("disabled", "disabled");
+            }
+        });
+    });
+</script>
+
+<div class="back-to-top"></div>
+
+<div class="page-banner overlay-dark bg-image" style="background-image: url('@Url.Content("~/AssetsTheme/img/ImgWebsite/bg.jpg")');">
+    <div class="banner-section">
+        <div class="container text-center wow fadeInUp">
+            <nav aria-label="Breadcrumb">
+                <ol class="breadcrumb breadcrumb-dark bg-transparent justify-content-center py-0 mb-2">
+                    <li class="breadcrumb-item"><a href="#">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">เข้าสู่ระบบ</li>
+                </ol>
+            </nav>
+            <h1 class="font-weight-normal">เข้าสู่ระบบ</h1>
+        </div> <!-- .container -->
+    </div> <!-- .banner-section -->
+</div> <!-- .page-banner -->
+
+<div class="page-section">
+    <div class="container">
+        <h1 class="text-center wow fadeInUp">กรอก Username และ Password</h1>
+
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "contact-form mt-5" }))
+        {
+            <div class="row mb-3">
+                <div class="col-sm-12 py-2 wow">
+                    <label class="font-weight-bold">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" required autocomplete="off">
+                </div>
+                <div class="col-12 py-2 wow">
+                    <label class="font-weight-bold" for="subject">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required autocomplete="off">
+                </div>
+            </div>
+            <div class="g-recaptcha mt-3" data-sitekey="6Lc2Yk4cAAAAABNkOJprKIS1bIcZAEkypaCxPibL"></div>
+            <button id="btnLogin" type="submit" class="btn btn-primary btn-block wow  mt-3" disabled>เข้าสู่ระบบ</button>
+        }
+    </div>
+</div>

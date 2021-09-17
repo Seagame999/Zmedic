@@ -38,5 +38,6 @@ namespace Zmedic.Models
         public string Date_Finish { get; set; }
         public string Time_Finish { get; set; }
         public string Result { get; set; }
+        public string MC { get; set; }
     }
 }

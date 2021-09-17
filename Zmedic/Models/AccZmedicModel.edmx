@@ -44,6 +44,7 @@
           <Property Name="Date_Finish" Type="varchar" MaxLength="200" />
           <Property Name="Time_Finish" Type="varchar" MaxLength="200" />
           <Property Name="Result" Type="nvarchar(max)" />
+          <Property Name="MC" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -57,6 +58,7 @@
           <Property Name="Collected_Date" Type="date" />
           <Property Name="File_Name" Type="nvarchar(max)" />
           <Property Name="Time_stamp" Type="date" />
+          <Property Name="MC_File_Name" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Upload">
           <Key>
@@ -120,6 +122,7 @@
           <Property Name="Date_Finish" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Time_Finish" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -133,6 +136,7 @@
           <Property Name="Collected_Date" Type="DateTime" Precision="0" />
           <Property Name="File_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Time_stamp" Type="DateTime" Precision="0" />
+          <Property Name="MC_File_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Upload">
           <Key>
@@ -174,6 +178,7 @@
           <EntitySetMapping Name="Master_template">
             <EntityTypeMapping TypeName="AccZmedicModel.Master_template">
               <MappingFragment StoreEntitySet="Master_template">
+                <ScalarProperty Name="MC" ColumnName="MC" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data_Status" ColumnName="Data_Status" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
@@ -204,6 +209,7 @@
           <EntitySetMapping Name="Patient">
             <EntityTypeMapping TypeName="AccZmedicModel.Patient">
               <MappingFragment StoreEntitySet="Patient">
+                <ScalarProperty Name="MC_File_Name" ColumnName="MC_File_Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data_Status" ColumnName="Data_Status" />
                 <ScalarProperty Name="ID_Passport" ColumnName="ID_Passport" />
