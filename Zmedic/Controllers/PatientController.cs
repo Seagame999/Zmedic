@@ -101,7 +101,7 @@ namespace Zmedic.Controllers
             string userName = "sittinon@zmedicgroup.com";
             string password = "1Q2w3e4r";
             var securePassword = new SecureString();
-            string fileServerRelativeUrl = "";
+            string fileServerRelativeUrl = null;
 
             try
             {
