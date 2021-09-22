@@ -1,12 +1,17 @@
-﻿using ExcelDataReader;
+﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
+using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zmedic.Models;
+
+//ClearFileTemp, ImportExcel, ChangePassword
 
 namespace Zmedic.Controllers
 {
@@ -15,10 +20,10 @@ namespace Zmedic.Controllers
         AccZmedicEntities _context = new AccZmedicEntities();
 
         // GET: AdminPanel
-        public ActionResult Index()
-        {
-            return View();
-        }
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
 
         public ActionResult ImportExcelFile()
         {
@@ -26,74 +31,287 @@ namespace Zmedic.Controllers
         }
 
         [HttpPost]
-        public ActionResult ImportExcelFilePrograms()
+        public ActionResult ImportExcelFile(FormCollection formCollection)
         {
-            return View();
-        }
+            var masterList = new List<Master_template>();
 
-        public List<Master_template> GetDataFromExcelFile(Stream stream)
-        {
-            List<Master_template> csvList = new List<Master_template>();
-
-            try
+            if (Request != null)
             {
-                using (var reader = ExcelReaderFactory.CreateCsvReader(stream))
+                HttpPostedFileBase file = Request.Files["ExcelFile"];
+
+                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
-                    var dataSet = reader.AsDataSet(new ExcelDataSetConfiguration
+                    string fileName = file.FileName;
+                    string fileContentType = file.ContentType;
+                    byte[] fileBytes = new byte[file.ContentLength];
+
+                    var data = file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+
+                    using (var package = new ExcelPackage(file.InputStream))
                     {
-                        ConfigureDataTable = _ => new ExcelDataTableConfiguration
+                        var currentSheet = package.Workbook.Worksheets;
+                        var workSheet = currentSheet.First();
+                        var numberOfCol = workSheet.Dimension.End.Column;
+                        var numberOfRow = workSheet.Dimension.End.Row;
+
+                        for (int rowIterator = 2; rowIterator <= numberOfRow; rowIterator++)
                         {
-                            UseHeaderRow = true
-                        }
-                    });
+                            var masterTemplate = new Master_template();
 
-                    if (dataSet.Tables.Count > 0)
-                    {
-                        var dataTable = dataSet.Tables[0];
+                            masterTemplate.Data_Status = true;
 
-                        foreach (DataRow objDataRow in dataTable.Rows)
-                        {
-                            if (objDataRow.ItemArray.All(x => string.IsNullOrEmpty(x?.ToString()))) continue;
-
-                            csvList.Add(new Master_template()
-
+                            //Col_Number
+                            if (workSheet.Cells[rowIterator, 1].Value == null)
                             {
-                                Data_Status = true,
-                                Number = Convert.ToInt32(objDataRow["Number"].ToString()),
-                                Prefix = objDataRow["Prefix"].ToString(),
-                                First_Name = objDataRow["First Name"].ToString(),
-                                Last_Name = objDataRow["Lastname"].ToString(),
-                                ID_Passport = objDataRow["ID card/Passport ID"].ToString(),
-                                DOB = Convert.ToDateTime(objDataRow["DOB"].ToString()),
-                                AGE = objDataRow["Age"].ToString(),
-                                Sex = objDataRow["Sex"].ToString(),
-                                Collected_Date = Convert.ToDateTime(objDataRow["Collected date"].ToString()),
-                                Specimen = objDataRow["Specimen"].ToString(),
-                                Hospital_Clinic = objDataRow["Hospital/Clinic"].ToString(),
-                                Doctor = objDataRow["Doctor"].ToString(),
-                                VN = objDataRow["VN"].ToString(),
-                                LN = objDataRow["LN"].ToString(),
-                                HN = objDataRow["HN"].ToString(),
-                                N_gene_Ct = objDataRow["N gene : Ct"].ToString(),
-                                S_gene_Ct = objDataRow["S gene : Ct"].ToString(),
-                                Date_start = objDataRow["Time (Start)"].ToString(),
-                                Time_Finish = objDataRow["Time (Finish)"].ToString(),
-                                Result = objDataRow["Result"].ToString(),
-                                MC = objDataRow["MC"].ToString()
-                            });
+                                masterTemplate.Number = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Number = Convert.ToInt32(workSheet.Cells[rowIterator, 1].Value);
+                            }
 
+                            //Col_Prefix
+                            if (workSheet.Cells[rowIterator, 2].Value == null)
+                            {
+                                masterTemplate.Prefix = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Prefix = workSheet.Cells[rowIterator, 2].Value.ToString();
+                            }
+
+                            //Col_FirstName
+                            if (workSheet.Cells[rowIterator, 3].Value == null)
+                            {
+                                masterTemplate.First_Name = null;
+                            }
+                            else
+                            {
+                                masterTemplate.First_Name = workSheet.Cells[rowIterator, 3].Value.ToString();
+                            }
+
+                            //Col_LastName
+                            if (workSheet.Cells[rowIterator, 4].Value == null)
+                            {
+                                masterTemplate.Last_Name = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Last_Name = workSheet.Cells[rowIterator, 4].Value.ToString();
+                            }
+
+                            //Col_IdCard
+                            if (workSheet.Cells[rowIterator, 5].Value == null)
+                            {
+                                masterTemplate.ID_Passport = null;
+                            }
+                            else
+                            {
+                                masterTemplate.ID_Passport = workSheet.Cells[rowIterator, 5].Value.ToString();
+                            }
+
+                            //Col_DOB
+                            if (workSheet.Cells[rowIterator, 6].Value == null)
+                            {
+                                masterTemplate.DOB = null;
+                            }
+                            else
+                            {
+                                masterTemplate.DOB = Convert.ToDateTime(workSheet.Cells[rowIterator, 5].Value);
+                            }
+
+                            //Col_Age
+                            if (workSheet.Cells[rowIterator, 7].Value == null)
+                            {
+                                masterTemplate.AGE = null;
+                            }
+                            else
+                            {
+                                masterTemplate.AGE = workSheet.Cells[rowIterator, 7].Value.ToString();
+                            }
+
+                            //Col_Sex
+                            if (workSheet.Cells[rowIterator, 8].Value == null)
+                            {
+                                masterTemplate.Sex = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Sex = workSheet.Cells[rowIterator, 8].Value.ToString();
+                            }
+
+                            //Col_Collected_date
+                            if (workSheet.Cells[rowIterator, 9].Value == null)
+                            {
+                                masterTemplate.Collected_Date = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Collected_Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 9].Value);
+                            }
+
+                            //Col_Specimen
+                            if (workSheet.Cells[rowIterator, 10].Value == null)
+                            {
+                                masterTemplate.Specimen = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Specimen = workSheet.Cells[rowIterator, 10].Value.ToString();
+                            }
+
+                            //Col_HospitalClinic
+                            if (workSheet.Cells[rowIterator, 11].Value == null)
+                            {
+                                masterTemplate.Hospital_Clinic = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Hospital_Clinic = workSheet.Cells[rowIterator, 11].Value.ToString();
+                            }
+
+                            //Col_ReceivedDate
+                            if (workSheet.Cells[rowIterator, 12].Value == null)
+                            {
+                                masterTemplate.Received_Date = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Received_Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 12].Value);
+                            }
+
+                            //Col_Doctor
+                            if (workSheet.Cells[rowIterator, 13].Value == null)
+                            {
+                                masterTemplate.Doctor = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Doctor = workSheet.Cells[rowIterator, 13].Value.ToString();
+                            }
+
+                            //Col_VN
+                            if (workSheet.Cells[rowIterator, 14].Value == null)
+                            {
+                                masterTemplate.VN = null;
+                            }
+                            else
+                            {
+                                masterTemplate.VN = workSheet.Cells[rowIterator, 14].Value.ToString();
+                            }
+
+                            //Col_LN
+                            if (workSheet.Cells[rowIterator, 15].Value == null)
+                            {
+                                masterTemplate.LN = null;
+                            }
+                            else
+                            {
+                                masterTemplate.LN = workSheet.Cells[rowIterator, 15].Value.ToString();
+                            }
+
+                            //Col_HN
+                            if (workSheet.Cells[rowIterator, 16].Value == null)
+                            {
+                                masterTemplate.HN = null;
+                            }
+                            else
+                            {
+                                masterTemplate.HN = workSheet.Cells[rowIterator, 16].Value.ToString();
+                            }
+
+                            //Col_N_gene
+                            if (workSheet.Cells[rowIterator, 17].Value == null)
+                            {
+                                masterTemplate.N_gene_Ct = null;
+                            }
+                            else
+                            {
+                                masterTemplate.N_gene_Ct = workSheet.Cells[rowIterator, 17].Value.ToString();
+                            }
+
+                            //Col_S_gene
+                            if (workSheet.Cells[rowIterator, 18].Value == null)
+                            {
+                                masterTemplate.S_gene_Ct = null;
+                            }
+                            else
+                            {
+                                masterTemplate.S_gene_Ct = workSheet.Cells[rowIterator, 18].Value.ToString();
+                            }
+
+                            //Col_Date(Start)
+                            if (workSheet.Cells[rowIterator, 19].Value == null)
+                            {
+                                masterTemplate.Date_start = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Date_start = workSheet.Cells[rowIterator, 19].Value.ToString();
+                            }
+
+                            //Col_Time(Start)
+                            if (workSheet.Cells[rowIterator, 20].Value == null)
+                            {
+                                masterTemplate.Time_Start = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Time_Start = workSheet.Cells[rowIterator, 20].Value.ToString();
+                            }
+
+                            //Col_Date(finish)
+                            if (workSheet.Cells[rowIterator, 21].Value == null)
+                            {
+                                masterTemplate.Date_Finish = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Date_Finish = workSheet.Cells[rowIterator, 21].Value.ToString();
+                            }
+
+                            //Col_Time(Finish)
+                            if (workSheet.Cells[rowIterator, 22].Value == null)
+                            {
+                                masterTemplate.Time_Finish = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Time_Finish = workSheet.Cells[rowIterator, 22].Value.ToString();
+                            }
+
+                            //Col_Result
+                            if (workSheet.Cells[rowIterator, 23].Value == null)
+                            {
+                                masterTemplate.Result = null;
+                            }
+                            else
+                            {
+                                masterTemplate.Result = workSheet.Cells[rowIterator, 23].Value.ToString();
+                            }
+
+                            //Col_Mc
+                            masterTemplate.MC = "MC_" + masterTemplate.LN + "_" + masterTemplate.First_Name + "_" + masterTemplate.Last_Name + ".pdf";
+
+
+                            masterList.Add(masterTemplate);
                         }
                     }
                 }
             }
-            catch (Exception)
+
+            using (AccZmedicEntities accZmedicEntities = new AccZmedicEntities())
             {
-                throw;
+                foreach (var item in masterList)
+                {
+                    accZmedicEntities.Master_template.Add(item);
+                }
+                accZmedicEntities.SaveChanges();
             }
 
-            return csvList;
-        }
+            return View();
 
+        }
 
     }
 }

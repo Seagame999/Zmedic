@@ -11,8 +11,7 @@ namespace Zmedic.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.Entity;
-
+    
     public partial class Master_template
     {
         public int Id { get; set; }
@@ -40,6 +39,6 @@ namespace Zmedic.Models
         public string Time_Finish { get; set; }
         public string Result { get; set; }
         public string MC { get; set; }
+        public Nullable<System.DateTime> Received_Date { get; set; }
     }
-
 }

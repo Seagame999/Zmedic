@@ -45,6 +45,7 @@
           <Property Name="Time_Finish" Type="varchar" MaxLength="200" />
           <Property Name="Result" Type="nvarchar(max)" />
           <Property Name="MC" Type="nvarchar(max)" />
+          <Property Name="Received_Date" Type="date" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -123,6 +124,7 @@
           <Property Name="Time_Finish" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Result" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="MC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Received_Date" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -178,6 +180,7 @@
           <EntitySetMapping Name="Master_template">
             <EntityTypeMapping TypeName="AccZmedicModel.Master_template">
               <MappingFragment StoreEntitySet="Master_template">
+                <ScalarProperty Name="Received_Date" ColumnName="Received_Date" />
                 <ScalarProperty Name="MC" ColumnName="MC" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Data_Status" ColumnName="Data_Status" />
