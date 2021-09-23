@@ -10,6 +10,7 @@ using Zmedic.Models;
 
 namespace Zmedic.Controllers
 {
+    [HandleError]
     public class PatientController : Controller
     {
         AccZmedicEntities _context = new AccZmedicEntities();
@@ -34,7 +35,7 @@ namespace Zmedic.Controllers
 
                 //DateTime dateTimeAddYears = dateTime.AddYears(543);
 
-                string dateOfBirth = date.ToString("M/d/yyyy");
+                string dateOfBirth = date.ToString("d/M/yyyy");
 
                 var patientReport = _context.Patient;
 

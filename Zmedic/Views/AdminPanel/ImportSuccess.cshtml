@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "ImportSuccess";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    window.setTimeout(function () {
+        window.location.href = '@Url.Action("ImportExcelFile", "AdminPanel")';
+    }, 4000);
+</script>
+
+<h2 class="text-success">นำเข้าไฟล์ Excel สำเร็จแล้ว</h2>
+

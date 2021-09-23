@@ -1,13 +1,18 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en" class="no-js">
 <head>
     <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
     <title>Error</title>
 </head>
 <body>
-    <hgroup>
-        <h1>Error.</h1>
-        <h2>An error occurred while processing your request.</h2>
-    </hgroup>
+    <a class="h1 text-dark font-weight-bold">มีบางอย่างผิดปกติ... กำลังนำกลับไปหน้าหลัก</a>
+
+
+    <script type="text/javascript">
+    window.setTimeout(function () {
+        window.location.href = '@Url.Action("Index","Home")';
+    }, 1500);
+    </script>
 </body>
 </html>

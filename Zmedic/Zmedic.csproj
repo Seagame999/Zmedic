@@ -313,6 +313,7 @@
     <Content Include="Models\AccZmedicModel.edmx.diagram">
       <DependentUpon>AccZmedicModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Error\PageNotFound.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -324,6 +325,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\patientLabSearch.js" />
+    <Content Include="Scripts\patientLabSearch2.js" />
+    <Content Include="Scripts\patientLabSearch3.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -345,10 +349,11 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\AdminPanel\ImportExcelFile.cshtml" />
+    <Content Include="Views\AdminPanel\ImportSuccess.cshtml" />
+    <Content Include="Views\AdminPanel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Class\" />
     <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>

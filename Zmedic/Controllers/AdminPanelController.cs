@@ -1,12 +1,7 @@
 ﻿using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.Entity.Validation;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Zmedic.Models;
@@ -15,15 +10,16 @@ using Zmedic.Models;
 
 namespace Zmedic.Controllers
 {
+    [HandleError]
     public class AdminPanelController : Controller
     {
         AccZmedicEntities _context = new AccZmedicEntities();
 
-        // GET: AdminPanel
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
+
+        public ActionResult Index()
+        {
+            return View();
+        }
 
         public ActionResult ImportExcelFile()
         {
@@ -34,12 +30,15 @@ namespace Zmedic.Controllers
         public ActionResult ImportExcelFile(FormCollection formCollection)
         {
             var masterList = new List<Master_template>();
+            var patientList = new List<Patient>();
 
             if (Request != null)
             {
                 HttpPostedFileBase file = Request.Files["ExcelFile"];
 
-                if ((file != null) && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
+                if ((file != null) &&
+                    (file.FileName.EndsWith(".xls")) || (file.FileName.EndsWith(".XLS")) || (file.FileName.EndsWith(".xlsx")) || (file.FileName.EndsWith(".XLSX"))
+                    && (file.ContentLength > 0) && !string.IsNullOrEmpty(file.FileName))
                 {
                     string fileName = file.FileName;
                     string fileContentType = file.ContentType;
@@ -57,8 +56,11 @@ namespace Zmedic.Controllers
                         for (int rowIterator = 2; rowIterator <= numberOfRow; rowIterator++)
                         {
                             var masterTemplate = new Master_template();
+                            var patient = new Patient();
 
+                            //Data_Status_in_DB
                             masterTemplate.Data_Status = true;
+                            patient.Data_Status = true;
 
                             //Col_Number
                             if (workSheet.Cells[rowIterator, 1].Value == null)
@@ -104,20 +106,24 @@ namespace Zmedic.Controllers
                             if (workSheet.Cells[rowIterator, 5].Value == null)
                             {
                                 masterTemplate.ID_Passport = null;
+                                patient.ID_Passport = null;
                             }
                             else
                             {
                                 masterTemplate.ID_Passport = workSheet.Cells[rowIterator, 5].Value.ToString();
+                                patient.ID_Passport = workSheet.Cells[rowIterator, 5].Value.ToString();
                             }
 
                             //Col_DOB
                             if (workSheet.Cells[rowIterator, 6].Value == null)
                             {
                                 masterTemplate.DOB = null;
+                                patient.DOB = null;
                             }
                             else
                             {
-                                masterTemplate.DOB = Convert.ToDateTime(workSheet.Cells[rowIterator, 5].Value);
+                                masterTemplate.DOB = Convert.ToDateTime(workSheet.Cells[rowIterator, 6].Value);
+                                patient.DOB = workSheet.Cells[rowIterator, 6].Value.ToString();
                             }
 
                             //Col_Age
@@ -144,10 +150,12 @@ namespace Zmedic.Controllers
                             if (workSheet.Cells[rowIterator, 9].Value == null)
                             {
                                 masterTemplate.Collected_Date = null;
+                                patient.Collected_Date = null;
                             }
                             else
                             {
                                 masterTemplate.Collected_Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 9].Value);
+                                patient.Collected_Date = Convert.ToDateTime(workSheet.Cells[rowIterator, 9].Value);
                             }
 
                             //Col_Specimen
@@ -204,10 +212,12 @@ namespace Zmedic.Controllers
                             if (workSheet.Cells[rowIterator, 15].Value == null)
                             {
                                 masterTemplate.LN = null;
+                                patient.LN = null;
                             }
                             else
                             {
                                 masterTemplate.LN = workSheet.Cells[rowIterator, 15].Value.ToString();
+                                patient.LN = workSheet.Cells[rowIterator, 15].Value.ToString();
                             }
 
                             //Col_HN
@@ -291,12 +301,29 @@ namespace Zmedic.Controllers
                             }
 
                             //Col_Mc
-                            masterTemplate.MC = "MC_" + masterTemplate.LN + "_" + masterTemplate.First_Name + "_" + masterTemplate.Last_Name + ".pdf";
+                            if (workSheet.Cells[rowIterator, 24].Value == null)
+                            {
+                                masterTemplate.MC = null;
+                                patient.MC_File_Name = null;
+                            }
+                            else
+                            {
+                                masterTemplate.MC = "MC_" + masterTemplate.LN + "_" + masterTemplate.First_Name + "_" + masterTemplate.Last_Name + ".pdf";
+                                patient.MC_File_Name = "MC_" + masterTemplate.LN + "_" + masterTemplate.First_Name + "_" + masterTemplate.Last_Name + ".pdf";
+                            }
 
+                            patient.Time_stamp = DateTime.Now.Date;
+
+                            patient.File_Name = masterTemplate.LN + "_" + masterTemplate.First_Name + " " + masterTemplate.Last_Name + ".pdf";
 
                             masterList.Add(masterTemplate);
+                            patientList.Add(patient);
                         }
                     }
+                }
+                else
+                {
+                    ViewBag.Error = "กรุณาเลือกไฟล์ Excel หรือ ข้อมูลในตารางว่างเปล่า";
                 }
             }
 
@@ -306,11 +333,22 @@ namespace Zmedic.Controllers
                 {
                     accZmedicEntities.Master_template.Add(item);
                 }
+
+                foreach(var item in patientList)
+                {
+                    accZmedicEntities.Patient.Add(item);
+                }
+
                 accZmedicEntities.SaveChanges();
             }
 
-            return View();
+            return RedirectToAction("ImportSuccess");
 
+        }
+
+        public ActionResult ImportSuccess()
+        {
+            return View();
         }
 
     }

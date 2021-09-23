@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="back-to-top"></div>
+
+<div class="page-section">
+    <div class="container">
+        <div class="row">
+            <h2 class="font-weight-bold">ยินดีต้อนรับ Admin กรุณาเลือกเมนูเพื่อทำรายการ</h2>
+        </div>
+        <div class="row mt-3">
+            <a class="btn btn-outline-info" href="@Url.Action("ImportExcelFile","AdminPanel")">เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info" href="@Url.Action("ChangePassword","Login")">เปลี่ยนรหัสผ่าน</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info" href="@Url.Action("ClearPdfFileTemp","Patient")">เคลียร์ไฟล์ PDF ชั่วคราวในเว็บไซต์</a>
+        </div>
+    </div>
+    <hr />
+</div>
+
+
+

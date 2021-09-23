@@ -1,5 +1,38 @@
-﻿@using (Html.BeginForm("ImportExcelFile", "AdminPanel", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    <input type="file" name="ExcelFile" />
-    <input type="submit" value="Import" />
+﻿
+@{
+    ViewBag.Title = "เพิ่มไฟล์ Excel เข้าระบบ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="page-section">
+    <div class="container">
+        <div class="row">
+            <h2 class="font-weight-bold">ยินดีต้อนรับ Admin กรุณาเลือกเมนูเพื่อทำรายการ</h2>
+        </div>
+        <div class="row mt-3">
+            <a class="btn btn-info" href="#">เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info" href="@Url.Action("ChangePassword","Login")">เปลี่ยนรหัสผ่าน</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info" href="@Url.Action("ClearPdfFileTemp","Patient")">เคลียร์ไฟล์ PDF ชั่วคราวในเว็บไซต์</a>
+        </div>
+    </div>
+    <hr />
+</div>
+
+<div class="page-section">
+    <div class="container">
+
+        <h4 class="">เพิ่มไฟล์ Excel เข้าระบบ</h4>
+
+        @using (Html.BeginForm("ImportExcelFile", "AdminPanel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <input type="file" name="ExcelFile" class="form-control" />
+
+            <div class="mt-3">
+                <input type="submit" value="นำเข้า" class="btn btn-primary btn-block wow" />
+            </div>
+
+        }
+
+        @ViewBag.Error
+    </div>
+</div>

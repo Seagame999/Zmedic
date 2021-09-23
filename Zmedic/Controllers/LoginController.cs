@@ -10,6 +10,7 @@ using System.Data.Entity;
 
 namespace Zmedic.Controllers
 {
+    [HandleError]
     public class LoginController : Controller
     {
         AccZmedicEntities _context = new AccZmedicEntities();

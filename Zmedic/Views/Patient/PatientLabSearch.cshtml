@@ -4,42 +4,9 @@
 }
 
 <script src='https://www.google.com/recaptcha/api.js'></script>
-
-<script>
-    $(document).ready(function () {
-        $("#btnSubmit").click(function () {
-            // add spinner to button
-            $(this).html(
-                `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> กรุณารอสักครู่...`
-            );
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(function () {
-        $("#sixIdInput").keyup(function () {           
-            var btnSubmit = $("#btnSubmit");            
-            if ($(this).val().trim() != "") {                
-                btnSubmit.removeAttr("disabled");
-            } else {               
-                btnSubmit.attr("disabled", "disabled");
-            }
-        });
-    });
-</script>
-
-<script>
-    function isNumber(evt) {
-        evt = (evt) ? evt : window.event;
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        return true;
-    }
-</script>
-
+<script src='~/Scripts/patientLabSearch.js'></script>
+<script src='~/Scripts/patientLabSearch2.js'></script>
+<script src='~/Scripts/patientLabSearch3.js'></script>
 
 <div class="back-to-top"></div>
 
