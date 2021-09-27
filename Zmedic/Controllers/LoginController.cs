@@ -16,12 +16,14 @@ namespace Zmedic.Controllers
         AccZmedicEntities _context = new AccZmedicEntities();
 
         // GET: Login
+        [Route("Ubx3BD")]
         public ActionResult Index()
         {
             return View();
         }
 
 
+        [Route("Ubx3BD")]
         [HttpPost]
         public ActionResult Index(string username, string password)
         {
@@ -35,7 +37,7 @@ namespace Zmedic.Controllers
                     Session["Username"] = member.FirstOrDefault().User.ToString();
                     Session["Role"] = member.FirstOrDefault().Role.ToString();
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "AdminPanel");
                 }
                 else
                 {
@@ -53,37 +55,43 @@ namespace Zmedic.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //public ActionResult ChangePassword(int id)
-        //{
-        //    Admin admin = _context.Admin.Find(id);
-
-        //    if (admin == null)
-        //    {
-        //        RedirectToAction("Index", "Login");
-        //    }
-
-        //    return View(admin);
-
-        //}
-
-        public ActionResult ChangePassword()
+        public ActionResult ChangePassword(int id)
         {
-            return View();
+            Admin admin = _context.Admin.Find(id);
+
+            if (admin == null)
+            {
+                RedirectToAction("Index", "Login");
+            }
+
+            return View(admin);
+
         }
 
+        //public ActionResult ChangePassword()
+        //{
+        //    return View();
+        //}
 
-    [HttpPost]
+
+        [HttpPost]
         public ActionResult ChangePassword(Admin admin)
         {
-            if (ModelState.IsValid)
+            var currentPasswordFind = _context.Admin.Where(p => p.Password == admin.Password).FirstOrDefault();
+
+            if (currentPasswordFind != null)
             {
-                admin.Password = GetMD5(admin.Password);
-                _context.Admin.Attach(admin);
-                _context.Entry(admin).Property(a => a.Password).IsModified = true;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                var user = _context.Admin.FirstOrDefault(p => p.Password == admin.Password);
+
+                if (ModelState.IsValid)
+                {
+                    admin.Password = GetMD5(admin.Password);
+                    user.Password = admin.Password;
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ChangePassword");
         }
 
         //Password Hash MD5

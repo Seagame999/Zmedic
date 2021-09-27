@@ -6,8 +6,6 @@ using System.Web;
 using System.Web.Mvc;
 using Zmedic.Models;
 
-//ClearFileTemp, ImportExcel, ChangePassword
-
 namespace Zmedic.Controllers
 {
     [HandleError]
@@ -105,8 +103,9 @@ namespace Zmedic.Controllers
                             //Col_IdCard
                             if (workSheet.Cells[rowIterator, 5].Value == null)
                             {
-                                masterTemplate.ID_Passport = null;
-                                patient.ID_Passport = null;
+                                return RedirectToAction("NullAlert", "AdminPanel");
+                                //masterTemplate.ID_Passport = null;
+                                //patient.ID_Passport = null;
                             }
                             else
                             {
@@ -117,8 +116,9 @@ namespace Zmedic.Controllers
                             //Col_DOB
                             if (workSheet.Cells[rowIterator, 6].Value == null)
                             {
-                                masterTemplate.DOB = null;
-                                patient.DOB = null;
+                                return RedirectToAction("NullAlert", "AdminPanel");
+                                //masterTemplate.DOB = null;
+                                //patient.DOB = null;
                             }
                             else
                             {
@@ -211,9 +211,18 @@ namespace Zmedic.Controllers
                             //Col_LN
                             if (workSheet.Cells[rowIterator, 15].Value == null)
                             {
-                                masterTemplate.LN = null;
-                                patient.LN = null;
+                                return RedirectToAction("NullAlert", "AdminPanel");
+                                //masterTemplate.LN = null;
+                                //patient.LN = null;
                             }
+
+                            var LnFromDB = _context.Master_template.FirstOrDefault(mt => mt.LN.Equals(workSheet.Cells[rowIterator, 15].Value.ToString()));
+                            if (LnFromDB != null)
+                            {
+                                ViewBag.Duplicate = "พบการซ้ำกันของรหัส LN : " + LnFromDB.LN;
+                                return RedirectToAction("DuplicateLN", "AdminPanel");
+                            }
+
                             else
                             {
                                 masterTemplate.LN = workSheet.Cells[rowIterator, 15].Value.ToString();
@@ -334,7 +343,7 @@ namespace Zmedic.Controllers
                     accZmedicEntities.Master_template.Add(item);
                 }
 
-                foreach(var item in patientList)
+                foreach (var item in patientList)
                 {
                     accZmedicEntities.Patient.Add(item);
                 }
@@ -347,6 +356,16 @@ namespace Zmedic.Controllers
         }
 
         public ActionResult ImportSuccess()
+        {
+            return View();
+        }
+
+        public ActionResult NullAlert()
+        {
+            return View();
+        }
+
+        public ActionResult DuplicateLN()
         {
             return View();
         }

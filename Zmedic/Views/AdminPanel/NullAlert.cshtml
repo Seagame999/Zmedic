@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "NullAlert";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-danger">นำเข้าไฟล์ Excel ไม่สำเร็จ</h2>
+
+    <p><h3 class="">ตรวจพบข้อมูลไม่ครบถ้วน </h3></p>
+    <p><h3 class="font-weight-bold">[LN , เลขบัตรประชาชน หรือ เลขหนังสือเดินทาง , วัน เดือน ปี เกิด]</h3></p>
+    <p><h3 class="">โปรดกรอกให้ครบถ้วน</h3></p>
+
+    <a class="btn btn-primary" href="@Url.Action("ImportExcelFile","AdminPanel")">กลับไปหน้านำเข้า Excel</a>
+</div>
+
+

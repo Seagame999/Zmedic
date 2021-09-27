@@ -19,29 +19,29 @@
                     <li class="breadcrumb-item active" aria-current="page">ตรวจสอบผลแลป</li>
                 </ol>
             </nav>
-            <h1 class="font-weight-normal">ตรวจสอบผลแลป</h1>
+            <h1 class="font-weight-normal">ตรวจสอบผลแลป (Check Lab Result)</h1>
         </div> <!-- .container -->
     </div> <!-- .banner-section -->
 </div> <!-- .page-banner -->
 
 <div class="page-section">
     <div class="container">
-        <h1 class="text-center wow fadeInUp">กรุณาใส่ข้อมูลด้านล่าง</h1>
+        <h2 class="text-center wow fadeInUp">กรุณาใส่ข้อมูลด้านล่าง (Please Enter Information)</h2>
 
         @using (Html.BeginForm("LabResultDate", "Patient", FormMethod.Get, new { @class = "contact-form mt-5" }))
         {
             <div class="row mb-3">
                 <div class="col-sm-12 py-2 wow fadeInLeft">
-                    <label class="font-weight-bold" for="fullName">วัน เดือน ปี เกิด</label>
+                    <label class="font-weight-bold" for="fullName">วัน เดือน ปี เกิด (Date of birth)</label>
                     <input type="date" id="dateInput" name="dateInput" data-date-format="DDMMYYYY" class="form-control" required autocomplete="off">
                 </div>
                 <div class="col-12 py-2 wow fadeInUp">
-                    <label class="font-weight-bold" for="subject">เลข 6 หลักสุดท้ายของบัตรประชาชน</label>
+                    <label class="font-weight-bold" for="subject">เลข 6 หลักสุดท้ายของบัตรประชาชน หรือ หนังสือเดือนทาง (Last 6 digits of Passport Number)</label>
                     <input type="text" onkeypress="return isNumber(event)" id="sixIdInput" name="sixIdInput" class="form-control" placeholder="x-xxxx-xx123-45-6" required autocomplete="off">
                 </div>
             </div>
             <div class="g-recaptcha mt-3" data-sitekey="6Lc2Yk4cAAAAABNkOJprKIS1bIcZAEkypaCxPibL"></div>
-            <button id="btnSubmit"  type="submit" class="btn btn-primary btn-block wow zoomIn mt-3" disabled>ตรวจสอบ</button>
+            <button id="btnSubmit"  type="submit" class="btn btn-primary btn-block wow zoomIn mt-3" disabled>ตรวจสอบ (Check)</button>
         }
     </div>
 </div>

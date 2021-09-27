@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "DuplicateLN";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-danger">นำเข้าไฟล์ Excel ไม่สำเร็จ</h2>
+
+    <p><h3>ตรวจพบค่าซ้ำกันของ"ข้อมูลรหัสLN"ที่จะนำเข้าตาราง </h3></p>
+    <p><h3>Report</h3></p>
+    <p><h3 class="text-danger">@ViewBag.Duplicate</h3></p>
+    <hr>
+    <a class="btn btn-primary" href="@Url.Action("ImportExcelFile","AdminPanel")">กลับไปหน้านำเข้า Excel</a>
+</div>
+
