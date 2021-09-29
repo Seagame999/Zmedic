@@ -215,14 +215,6 @@ namespace Zmedic.Controllers
                                 //masterTemplate.LN = null;
                                 //patient.LN = null;
                             }
-
-                            var LnFromDB = _context.Master_template.FirstOrDefault(mt => mt.LN.Equals(workSheet.Cells[rowIterator, 15].Value.ToString()));
-                            if (LnFromDB != null)
-                            {
-                                ViewBag.Duplicate = "พบการซ้ำกันของรหัส LN : " + LnFromDB.LN;
-                                return RedirectToAction("DuplicateLN", "AdminPanel");
-                            }
-
                             else
                             {
                                 masterTemplate.LN = workSheet.Cells[rowIterator, 15].Value.ToString();
@@ -340,7 +332,19 @@ namespace Zmedic.Controllers
             {
                 foreach (var item in masterList)
                 {
-                    accZmedicEntities.Master_template.Add(item);
+                    //ตรวจการซ้ำกันของรหัส LN
+                    var LnFromDB = _context.Master_template.FirstOrDefault(mt => mt.LN.Equals(item.LN));
+
+                    if (LnFromDB != null)
+                    {
+                        TempData["Duplicate"] = "รหัส LN: " + LnFromDB.LN + "___" + LnFromDB.First_Name + "   " + LnFromDB.Last_Name +
+                            "   " + LnFromDB.ID_Passport + "___" + "ลำดับที่: " + LnFromDB.Number;
+                        return RedirectToAction("DuplicateLN", "AdminPanel");
+                    }
+                    else
+                    {
+                        accZmedicEntities.Master_template.Add(item);
+                    }
                 }
 
                 foreach (var item in patientList)
