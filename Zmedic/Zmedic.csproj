@@ -301,12 +301,12 @@
       <DependentUpon>AccZmedicModel.edmx</DependentUpon>
       <LastGenOutput>AccZmedicModel.cs</LastGenOutput>
     </Content>
+    <Content Include="PdfTempfile\TempData.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="AssetsTheme\fonts\maicons.eot" />
     <Content Include="AssetsTheme\fonts\maicons.ttf" />
     <Content Include="AssetsTheme\fonts\maicons.woff" />
-    <Content Include="PdfTempfile\09092564123456.pdf" />
     <EntityDeploy Include="Models\AccZmedicModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>AccZmedicModel.Designer.cs</LastGenOutput>
@@ -354,6 +354,7 @@
     <Content Include="Views\AdminPanel\Index.cshtml" />
     <Content Include="Views\AdminPanel\NullAlert.cshtml" />
     <Content Include="Views\AdminPanel\DuplicateLN.cshtml" />
+    <Content Include="Views\AdminPanel\FileNotSupport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

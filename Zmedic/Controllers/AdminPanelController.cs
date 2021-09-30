@@ -16,12 +16,26 @@ namespace Zmedic.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult ImportExcelFile()
         {
-            return View();
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
@@ -324,7 +338,9 @@ namespace Zmedic.Controllers
                 }
                 else
                 {
-                    ViewBag.Error = "กรุณาเลือกไฟล์ Excel หรือ ข้อมูลในตารางว่างเปล่า";
+                    TempData["ErrorFile"] = "กรุณาเลือกไฟล์ Excel หรือ ข้อมูลในตารางว่างเปล่า";
+
+                    return RedirectToAction("FileNotSupport", "AdminPanel");
                 }
             }
 
@@ -361,17 +377,50 @@ namespace Zmedic.Controllers
 
         public ActionResult ImportSuccess()
         {
-            return View();
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult NullAlert()
         {
-            return View();
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         public ActionResult DuplicateLN()
         {
-            return View();
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult FileNotSupport()
+        {
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
     }

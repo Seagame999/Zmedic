@@ -74,27 +74,32 @@ namespace Zmedic.Controllers
 
         public ActionResult ClearPdfFileTemp()
         {
-            var path = Server.MapPath("~/pdfTempfile");
-
-            try
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
             {
-                System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(path);
+                var path = Server.MapPath("~/pdfTempfile");
+                try
+                {
+                    System.IO.DirectoryInfo di = new System.IO.DirectoryInfo(path);
 
-                foreach (System.IO.FileInfo file in di.GetFiles())
-                {
-                    file.Delete();
+                    foreach (System.IO.FileInfo file in di.GetFiles())
+                    {
+                        file.Delete();
+                    }
+                    foreach (System.IO.DirectoryInfo dir in di.GetDirectories())
+                    {
+                        dir.Delete(true);
+                    }
                 }
-                foreach (System.IO.DirectoryInfo dir in di.GetDirectories())
+                catch (Exception ex)
                 {
-                    dir.Delete(true);
+                    ViewBag.ex = ex;
                 }
+                return View();
             }
-            catch (Exception ex)
+            else
             {
-                ViewBag.ex = ex;
+                return RedirectToAction("Index", "Home");
             }
-
-            return View();
         }
 
         public string GetFileAndFolderFromSharepoint(string pdfFileName)

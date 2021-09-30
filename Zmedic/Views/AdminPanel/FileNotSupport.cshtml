@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "FileNotSupport";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-danger">ไฟล์ไม่สนับสนุน  @TempData["ErrorFile"]</h2>
+
+    <hr>
+
+    <a class="btn btn-primary" href="@Url.Action("ImportExcelFile","AdminPanel")">กลับไปหน้านำเข้า Excel</a>
+</div>
+

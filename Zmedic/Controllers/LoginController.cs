@@ -34,6 +34,7 @@ namespace Zmedic.Controllers
 
                 if (member.Count() > 0)
                 {
+                    Session["Id"] = member.FirstOrDefault().Id.ToString();
                     Session["Username"] = member.FirstOrDefault().User.ToString();
                     Session["Role"] = member.FirstOrDefault().Role.ToString();
 
@@ -57,22 +58,22 @@ namespace Zmedic.Controllers
 
         public ActionResult ChangePassword(int id)
         {
-            Admin admin = _context.Admin.Find(id);
-
-            if (admin == null)
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
             {
-                RedirectToAction("Index", "Login");
+                Admin admin = _context.Admin.Find(id);
+
+                if (admin == null)
+                {
+                    RedirectToAction("Index", "Login");
+                }
+
+                return View(admin);
             }
-
-            return View(admin);
-
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
-
-        //public ActionResult ChangePassword()
-        //{
-        //    return View();
-        //}
-
 
         [HttpPost]
         public ActionResult ChangePassword(Admin admin)
