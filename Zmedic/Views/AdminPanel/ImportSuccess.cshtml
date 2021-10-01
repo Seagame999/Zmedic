@@ -7,9 +7,11 @@
 <script type="text/javascript">
     window.setTimeout(function () {
         window.location.href = '@Url.Action("ImportExcelFile", "AdminPanel")';
-    }, 4000);
+    }, 10000);
 </script>
 
 <div class="container">
     <h2 class="text-success">นำเข้าไฟล์ Excel สำเร็จแล้ว</h2>
+
+    <a class="btn btn-primary mt-3" href="@Url.Action("ImportExcelFile","Adminpanel")">ตกลง</a>
 </div>
