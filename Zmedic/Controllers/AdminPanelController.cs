@@ -43,6 +43,7 @@ namespace Zmedic.Controllers
         {
             var masterList = new List<Master_template>();
             var patientList = new List<Patient>();
+            var logUpload = new Upload();
 
             if (Request != null)
             {
@@ -342,6 +343,14 @@ namespace Zmedic.Controllers
 
                     return RedirectToAction("FileNotSupport", "AdminPanel");
                 }
+
+                //LogUpload Header
+                logUpload.Upload_Date = DateTime.Now.Date;
+                logUpload.Upload_file_name = file.FileName;
+                logUpload.Number_of_Records = masterList.Count;
+                //---
+
+
             }
 
             using (AccZmedicEntities accZmedicEntities = new AccZmedicEntities())
@@ -355,6 +364,16 @@ namespace Zmedic.Controllers
                     {
                         TempData["Duplicate"] = "รหัส LN: " + LnFromDB.LN + "___" + LnFromDB.First_Name + "   " + LnFromDB.Last_Name +
                             "   " + LnFromDB.ID_Passport + "___" + "ลำดับที่: " + LnFromDB.Number;
+
+                        //LogUpload failure
+                        logUpload.Number_of_Success = 0;
+                        logUpload.Number_of_Fails = 1;
+                        logUpload.User = Session["Username"].ToString() + "_" + Session["Id"].ToString();
+                        logUpload.Upload_Reuslt = "failure";
+                        _context.Upload.Add(logUpload);
+                        _context.SaveChanges();
+                        //---
+
                         return RedirectToAction("DuplicateLN", "AdminPanel");
                     }
                     else
@@ -367,9 +386,17 @@ namespace Zmedic.Controllers
                 {
                     accZmedicEntities.Patient.Add(item);
                 }
-
                 accZmedicEntities.SaveChanges();
             }
+
+            //LogUpload Success
+            logUpload.Number_of_Success = masterList.Count;
+            logUpload.Number_of_Fails = 0;
+            logUpload.User = Session["Username"].ToString() + "_" + Session["Id"].ToString();
+            logUpload.Upload_Reuslt = "sucessfully";
+            _context.Upload.Add(logUpload);
+            _context.SaveChanges();
+            //---
 
             return RedirectToAction("ImportSuccess");
 
