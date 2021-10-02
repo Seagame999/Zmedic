@@ -137,7 +137,7 @@ namespace Zmedic.Controllers
                             }
                             else
                             {
-                                masterTemplate.DOB = Convert.ToDateTime(workSheet.Cells[rowIterator, 6].Value);
+                                masterTemplate.DOB = Convert.ToDateTime(workSheet.Cells[rowIterator, 6].Value).Date.AddYears(-543);
                                 patient.DOB = workSheet.Cells[rowIterator, 6].Value.ToString();
                             }
 

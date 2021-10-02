@@ -34,7 +34,7 @@
                         <span class="divider">|</span>
                         <a>
                             <span class="mai-mail text-primary"></span>
-                            acc.medicallab@zmedicgroup.com
+                            acclab@accmedlab.com
                         </a>
                     </div>
                 </div>
@@ -52,25 +52,26 @@
     <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/AssetsTheme/img/ImgWebsite/LogoAcc.png" height="70" /></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupport" aria-controls="navbarSupport" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>*@
 
-            <div class="collapse navbar-collapse" id="navbarSupport">
+            <div class="navbar-collapse" id="navbarSupport">
+                @*collapse*@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index","Home")">หน้าหลัก</a>
+                        <a class="nav-link text-dark" href="@Url.Action("Index","Home")">หน้าหลัก</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("PatientLabSearch","Patient")">ตรวจสอบผลแลป (Check Lab Result)</a>
+                        <a class="nav-link text-dark" href="@Url.Action("PatientLabSearch","Patient")">ตรวจสอบผลแลป (Check Lab Result)</a>
                     </li>
                     @if (Session["Role"] != null && Session["Role"].Equals("1"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link font-weight-bold" href="@Url.Action("Index","AdminPanel")">[ หน้าสำหรับผู้ดูแลระบบ ]</a>
+                            <a class="nav-link font-weight-bold text-info" href="@Url.Action("Index","AdminPanel")">[ หน้าสำหรับผู้ดูแลระบบ ]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link font-weight-bold" href="@Url.Action("Logout","Login")">[ ออกจากระบบ ]</a>
+                            <a class="nav-link font-weight-bold text-info" href="@Url.Action("Logout","Login")">[ ออกจากระบบ ]</a>
                         </li>
                     }
                 </ul>
