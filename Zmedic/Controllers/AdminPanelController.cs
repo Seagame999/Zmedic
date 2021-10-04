@@ -13,7 +13,6 @@ namespace Zmedic.Controllers
     {
         AccZmedicEntities _context = new AccZmedicEntities();
 
-
         public ActionResult Index()
         {
             if (Session["Role"] != null && Session["Role"].Equals("1"))
@@ -326,6 +325,18 @@ namespace Zmedic.Controllers
                             {
                                 masterTemplate.MC = "MC_" + masterTemplate.LN + "_" + masterTemplate.First_Name + "_" + masterTemplate.Last_Name + ".pdf";
                                 patient.MC_File_Name = "MC_" + masterTemplate.LN + "_" + masterTemplate.First_Name + "_" + masterTemplate.Last_Name + ".pdf";
+                            }
+
+                            //Col_Email
+                            if (workSheet.Cells[rowIterator, 25].Value == null)
+                            {
+                                masterTemplate.E_mail = null;
+                                patient.E_mail = null;
+                            }
+                            else
+                            {
+                                masterTemplate.E_mail = workSheet.Cells[rowIterator, 25].Value.ToString();
+                                patient.E_mail = workSheet.Cells[rowIterator, 25].Value.ToString();
                             }
 
                             patient.Time_stamp = DateTime.Now.Date;

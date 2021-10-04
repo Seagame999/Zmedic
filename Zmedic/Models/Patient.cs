@@ -23,5 +23,6 @@ namespace Zmedic.Models
         public string File_Name { get; set; }
         public Nullable<System.DateTime> Time_stamp { get; set; }
         public string MC_File_Name { get; set; }
+        public string E_mail { get; set; }
     }
 }

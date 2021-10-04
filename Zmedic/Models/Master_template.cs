@@ -40,5 +40,6 @@ namespace Zmedic.Models
         public string Result { get; set; }
         public string MC { get; set; }
         public Nullable<System.DateTime> Received_Date { get; set; }
+        public string E_mail { get; set; }
     }
 }
