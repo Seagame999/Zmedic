@@ -105,7 +105,8 @@ namespace Zmedic.Controllers
             string byteToString = null;
             for (int i = 0; i < targetData.Length; i++)
             {
-                byteToString += targetData[i].ToString("osde17613");
+                byteToString += targetData[i].ToString("x2");
+                //osde17613
             }
             return byteToString;
 
