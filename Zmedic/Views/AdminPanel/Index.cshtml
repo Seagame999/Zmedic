@@ -9,7 +9,7 @@
 <div class="page-section">
     <div class="container">
         <div class="row">
-            <h2 class="font-weight-bold">ยินดีต้อนรับ Admin กรุณาเลือกเมนูเพื่อทำรายการ</h2>
+            <h2 class="font-weight-bold">ยินดีต้อนรับคุณ @Session["Username"] กรุณาเลือกเมนูเพื่อทำรายการ</h2>
         </div>
         <div class="row mt-3">
             <a class="btn btn-outline-info" href="@Url.Action("ImportExcelFile","AdminPanel")">เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
@@ -18,6 +18,16 @@
         </div>
     </div>
     <hr />
+    <div class="container">
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-info">[ มีอะไรมาใหม่ ]</h4>
+                    <p class="font-weight-bold text-dark">-อัพเดทฟอนต์ (11/10/2564)</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
