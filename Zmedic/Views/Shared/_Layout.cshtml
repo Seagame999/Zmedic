@@ -24,6 +24,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="~/AssetsTheme/css/materialdesignicons.min.css">
+
 </head>
 <body>
 
@@ -68,15 +70,15 @@
                         <a class="nav-link text-dark" href="@Url.Action("Index","Home")">หน้าหลัก</a>
                     </li>*@
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="@Url.Action("PatientLabSearch","Patient")">ตรวจสอบผลแลป (Check Lab Result)</a>
+                        <a class="nav-link text-dark" href="@Url.Action("PatientLabSearch","Patient")"><i class="mdi mdi-24px mdi-clipboard-text-search-outline"></i>  ตรวจสอบผลแลป (Check Lab Result)</a>
                     </li>
                     @if (Session["Role"] != null && Session["Role"].Equals("1"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link font-weight-bold text-info" href="@Url.Action("Index","AdminPanel")">[ หน้าสำหรับผู้ดูแลระบบ ]</a>
+                            <a class="nav-link font-weight-bold text-info" href="@Url.Action("Index","AdminPanel")">[ <i class="mdi mdi-24px mdi-account-details-outline"></i>  หน้าสำหรับผู้ดูแลระบบ ]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link font-weight-bold text-info" href="@Url.Action("Logout","Login")">[ ออกจากระบบ ]</a>
+                            <a class="nav-link font-weight-bold text-info" href="@Url.Action("Logout","Login")">[ <i class="mdi mdi-24px mdi-account-arrow-right-outline"></i>  ออกจากระบบ ]</a>
                         </li>
                     }
                 </ul>

@@ -36,7 +36,7 @@
             <div class="row">
 
                 <div class="col-6">
-                    <a href="@Url.Action("Result", new { fileNamePdf = @item.LN }) " target="_blank"><h4>วันที่รับการตรวจ @Convert.ToDateTime(item.Collected_Date).ToString("dd MMMM yyyy")</h4></a>
+                    <a href="@Url.Action("Result", new { fileNamePdf = @item.LN }) " target="_blank"><h4>ผลการตรวจ จากการตรวจวันที่ @Convert.ToDateTime(item.Collected_Date).ToString("dd MMMM yyyy")</h4></a>
                 </div>
                 <div class="col-6">
                     @if (item.MC_File_Name == null)

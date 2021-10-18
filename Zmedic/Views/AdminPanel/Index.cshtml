@@ -12,9 +12,10 @@
             <h2 class="font-weight-bold">ยินดีต้อนรับคุณ @Session["Username"] กรุณาเลือกเมนูเพื่อทำรายการ</h2>
         </div>
         <div class="row mt-3">
-            <a class="btn btn-outline-info" href="@Url.Action("ImportExcelFile","AdminPanel")">เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
-            <a class="btn btn-outline-info" href="@Url.Action("ChangePassword","Login",new { id = Session["Id"] })">เปลี่ยนรหัสผ่าน</a> &nbsp; &nbsp;
-            <a class="btn btn-outline-info" href="@Url.Action("ClearPdfFileTemp","Patient")">เคลียร์ไฟล์ PDF ชั่วคราวในเซอร์เวอร์</a>
+            <a class="btn btn-outline-info mt-1" href="@Url.Action("SearchLabResult","AdminPanel")"><i class="mdi mdi-24px mdi-clipboard-search-outline"></i>  สืบค้นผลแลป</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info mt-1" href="@Url.Action("ImportExcelFile","AdminPanel")"><i class="mdi mdi-24px mdi-microsoft-excel"></i>  เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info mt-1" href="@Url.Action("ChangePassword","Login",new { id = Session["Id"] })"><i class="mdi mdi-24px mdi-key-chain"></i>  เปลี่ยนรหัสผ่าน</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info mt-1" href="@Url.Action("ClearPdfFileTemp","Patient")"><i class="mdi mdi-24px mdi-archive-remove-outline"></i>  เคลียร์ไฟล์ PDF ชั่วคราวในเซิร์ฟเวอร์</a>
         </div>
     </div>
     <hr />
@@ -23,7 +24,7 @@
             <div class="sidebar container">
                 <div class="sidebar-block">
                     <h4 class="sidebar-title">มีอะไรใหม่</h4>
-                    <p class="font-weight-bold text-dark">-อัพเดทฟอนต์ (11/10/2564)</p>
+                    <p class="font-weight-bold text-dark">-อัพเดทส่วนติดต่อผู้ใช้ (18/10/2564)</p>
                 </div>
             </div>
         </div>

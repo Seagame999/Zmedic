@@ -413,6 +413,22 @@ namespace Zmedic.Controllers
 
         }
 
+        public ActionResult SearchLabResult()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult SearchLabResult(string keywords, string dateFrom, string dateTo)
+        {
+            return View();
+        }
+
+
+
+
+        //สถานะ
+
         public ActionResult ImportSuccess()
         {
             if (Session["Role"] != null && Session["Role"].Equals("1"))
