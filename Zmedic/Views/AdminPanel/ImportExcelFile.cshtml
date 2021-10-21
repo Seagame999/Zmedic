@@ -34,7 +34,7 @@
             <h2 class="font-weight-bold">ยินดีต้อนรับคุณ @Session["Username"] กรุณาเลือกเมนูเพื่อทำรายการ</h2>
         </div>
         <div class="row mt-3">
-            <a class="btn btn-outline-info mt-1" href="@Url.Action("SearchLabResult","AdminPanel")"><i class="mdi mdi-24px mdi-clipboard-search-outline"></i>  สืบค้นผลแลป</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info mt-1" href="@Url.Action("PatientLabs","AdminPanel")"><i class="mdi mdi-24px mdi-clipboard-search-outline"></i>  สืบค้นผลแลป</a> &nbsp; &nbsp;
             <a class="btn btn-info mt-1" href="#"><i class="mdi mdi-24px mdi-microsoft-excel"></i>  เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
             <a class="btn btn-outline-info mt-1" href="@Url.Action("ChangePassword","Login",new { id = Session["Id"] })"><i class="mdi mdi-24px mdi-key-chain"></i>  เปลี่ยนรหัสผ่าน</a> &nbsp; &nbsp;
             <a class="btn btn-outline-info mt-1" href="@Url.Action("ClearPdfFileTemp","Patient")"><i class="mdi mdi-24px mdi-archive-remove-outline"></i>  เคลียร์ไฟล์ PDF ชั่วคราวในเซิร์ฟเวอร์</a>

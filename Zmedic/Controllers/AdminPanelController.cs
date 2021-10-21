@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Linq.Dynamic;
 using Zmedic.Models;
 
 namespace Zmedic.Controllers
@@ -413,18 +414,39 @@ namespace Zmedic.Controllers
 
         }
 
-        public ActionResult SearchLabResult()
+        public ActionResult PatientLabs()
         {
-            return View();
+            var patient = _context.Patient;
+
+            var patientResult = patient.ToList();
+
+            return View(patientResult);
         }
 
-        [HttpGet]
-        public ActionResult SearchLabResult(string keywords, string dateFrom, string dateTo)
+        [HttpPost]
+        public ActionResult PatientLabs(string keywords, string dateFrom, string dateTo)
         {
-            return View();
+            var patient = _context.Patient;
+
+            var patinetResult = patient.ToList();
+
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                patinetResult = patient.Where(p => p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
+            }
+
+            if(!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
+            {
+                DateTime dateFromDT = Convert.ToDateTime(dateFrom);
+
+                DateTime dateToDT = Convert.ToDateTime(dateTo);
+
+                patinetResult = patient.Where(p => p.Collected_Date >= dateFromDT).Where(p => p.Collected_Date <= dateToDT).ToList();                          
+
+            }
+
+            return View(patinetResult);
         }
-
-
 
 
         //สถานะ
