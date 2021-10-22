@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Zmedic.Models.Patient>
+﻿@model IEnumerable<Zmedic.Models.Upload>
 
 @{
-    ViewBag.Title = "สืบค้นผลแลป";
+    ViewBag.Title = "ประวัติการอัพโหลดไฟล์ Excel";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
 
 <script>
     $(function () {
-        $("#keywords").keyup(function () {
+        $("#status").change(function () {
             var btnSubmit = $("#btnSubmit");
             if ($(this).val().trim() != "") {
                 btnSubmit.removeAttr("disabled");
@@ -35,11 +35,7 @@
     });
 </script>
 
-
-
 <div class="back-to-top"></div>
-
-
 
 <div class="page-section">
     <div class="container">
@@ -47,9 +43,9 @@
             <h2 class="font-weight-bold">ยินดีต้อนรับคุณ @Session["Username"] กรุณาเลือกเมนูเพื่อทำรายการ</h2>
         </div>
         <div class="row mt-3">
-            <a class="btn btn-info btn-sm mt-1" href="#"><i class="mdi mdi-24px mdi-clipboard-search-outline"></i>  สืบค้นผลแลป</a> &nbsp; &nbsp;
+            <a class="btn btn-outline-info btn-sm mt-1" href="@Url.Action("PatientLabs","AdminPanel")"><i class="mdi mdi-24px mdi-clipboard-search-outline"></i>  สืบค้นผลแลป</a> &nbsp; &nbsp;
             <a class="btn btn-outline-info btn-sm mt-1" href="@Url.Action("ImportExcelFile","AdminPanel")"><i class="mdi mdi-24px mdi-microsoft-excel"></i>  เพิ่มไฟล์ Excel เข้าระบบ</a> &nbsp; &nbsp;
-            <a class="btn btn-outline-info btn-sm mt-1" href="@Url.Action("UploadFilesResult", "AdminPanel")"><i class="mdi mdi-24px mdi-clipboard-flow-outline"></i>  ประวัติการอัพโหลดไฟล์ Excel</a> &nbsp; &nbsp;
+            <a class="btn btn-info btn-sm mt-1" href="#"><i class="mdi mdi-24px mdi-clipboard-flow-outline"></i>  ประวัติการอัพโหลดไฟล์ Excel</a> &nbsp; &nbsp;
             <a class="btn btn-outline-info btn-sm mt-1" href="@Url.Action("ChangePassword","Login",new { id = Session["Id"] })"><i class="mdi mdi-24px mdi-key-chain"></i>  เปลี่ยนรหัสผ่าน</a> &nbsp; &nbsp;
             <a class="btn btn-outline-info btn-sm mt-1" href="@Url.Action("ClearPdfFileTemp","Patient")"><i class="mdi mdi-24px mdi-archive-remove-outline"></i>  เคลียร์ไฟล์ PDF ชั่วคราวในเซิร์ฟเวอร์</a>
         </div>
@@ -59,24 +55,28 @@
 
 
 <div class="container sidebar-block">
-    <h4 class="sidebar-title">ค้นหาผลแลป</h4>
+    <h4 class="sidebar-title">ประวัติการอัพโหลดไฟล์ Excel</h4>
     <div class="container">
-        @using (Html.BeginForm("PatientLabs", "AdminPanel", FormMethod.Post))
+        @using (Html.BeginForm("UploadFilesResult", "AdminPanel", FormMethod.Post))
         {
             <div class="row">
-                <div class="col">
-                    <label>ค้นหาโดย เลขบัตรประชาชน หรือ LN หรือ ID-Passport</label>
-                    <input type="text" name="keywords" id="keywords" class="form-control">
-                </div>
-            </div>
-            <div class="row mt-4">
                 <div class="col-6">
-                    <label>ค้นหาโดย วันที่ตรวจเริ่มจาก (Collected Date from)</label>
+                    <label>ค้นหาโดย วันที่เริ่มจาก (Upload Date from)</label>
                     <input type="date" id="dateFrom" name="dateFrom" data-date-format="DDMMYYYY" class="form-control" autocomplete="off">
                 </div>
                 <div class="col-6">
                     <label>ถึง (To)</label>
                     <input type="date" id="dateTo" name="dateTo" data-date-format="DDMMYYYY" class="form-control" autocomplete="off">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <label>ค้นหาโดยผลการอัพโหลด</label>
+                    <select id="status" name="status" class="form-control">
+                        <option value="">เลือก</option>
+                        <option value="failure">ล้มเหลว</option>
+                        <option value="sucessfully">สำเร็จ</option>
+                    </select>
                 </div>
             </div>
             <div class="row mt-4">
@@ -88,45 +88,42 @@
     </div>
 </div>
 
-
 <div class="page-section">
     <div class="sidebar-block container">
         <div class="container">
             <div class="row">
                 <div class="col-10">
-                    <h4 class="sidebar-title">รายงานผลแลป</h4>
+                    <h4 class="sidebar-title">รายงานผลการอัพโหลด</h4>
                 </div>
                 <div class="col-2">
-                    <a class="btn btn-primary btn-sm btn-block" href="@Url.Action("PatientLabs","AdminPanel")">ดูทั้งหมด</a>
+                    <a class="btn btn-primary btn-sm btn-block" href="@Url.Action("UploadFilesResult","AdminPanel")">ดูทั้งหมด</a>
                 </div>
             </div>
             <br />
             <div>
-                <table id="patientTable" class="table table-striped table-bordered table-responsive nowrap">
+                <table id="UploadTableId" class="table table-striped table-bordered table-responsive nowrap">
                     <thead>
                         <tr class="table-info">
-                            <th>ID Passport</th>
-                            <th>LN</th>
-                            <th>Collectd Date</th>
-                            <th>Lab Result File Name</th>
-                            <th>MC File Name</th>
-                            <th>Date of Birth</th>
-                            <th>E-mail</th>
-                            <th>Time Stamp</th>
+                            <th>Upload Date</th>
+                            <th>File Name</th>
+                            <th>Number of Records</th>
+                            <th>Number of Uploads Success</th>
+                            <th>Number of Uploads Fails</th>
+                            <th>Upload By</th>
+                            <th>Upload Result</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>@Html.DisplayFor(modelItem => item.ID_Passport)</td>
-                                <td>@Html.DisplayFor(modelItem => item.LN)</td>
-                                <td>@Convert.ToDateTime(item.Collected_Date).ToString("dd/MM/yyyy")</td>
-                                <td><a href="@Url.Action("Result","Patient", new { fileNamePdf = @item.LN }) " target="_blank">@Html.DisplayFor(modelItem => item.File_Name)</a></td>
-                                <td><a href="@Url.Action("Result","Patient", new { fileNamePdf = "MC_"+item.LN })" target="_blank">@Html.DisplayFor(modelItem => item.MC_File_Name)</a></td>
-                                <td>@Html.DisplayFor(modelItem => item.DOB)</td>
-                                <td>@Html.DisplayFor(modelItem => item.E_mail)</td>
-                                <td>@Convert.ToDateTime(item.Time_stamp).ToString("dd/MM/yyyy")</td>
+                                <td>@Convert.ToDateTime(item.Upload_Date).ToString("dd/MM/yyyy")</td>
+                                <td>@Html.DisplayFor(modelItem => item.Upload_file_name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Number_of_Records)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Number_of_Success)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Number_of_Fails)</td>
+                                <td>@Html.DisplayFor(modelItem => item.User)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Upload_Reuslt)</td>
                             </tr>
                         }
                     </tbody>
@@ -141,30 +138,12 @@
     </div>
 </div>
 
-
-<script>
-    function DownloadExcel() {
-        $.ajax({
-            type: "GET",
-            url: "/AdminPanel/ExcelExportPatientLabs?keywords=@ViewBag.keywords&dateFrom=@ViewBag.dateFrom&dateTo=@ViewBag.dateTo",
-            cache: false,
-            success: function (data) {
-                window.location = '/AdminPanel/DownloadPatientLabs';
-            },
-            error: function (data) {
-                alert("มีบางอย่างผิดปกติ...", 3000, 'rounded');
-            }
-        });
-    }
-</script>
-
-
 <script>
     $(document).ready(function () {
-        $("#patientTable").DataTable({
+        $("#UploadTableId").DataTable({
             "processing": true,
             "responsive": false,
-            "order": [[7, "desc"]],
+            "order": [[0, "desc"]],
             "language": {
                 "processing": "รอสักครู่...",
                 "search": "ค้นหาในตาราง:",
@@ -181,3 +160,21 @@
         });
     });
 </script>
+
+<script>
+    function DownloadExcel() {
+        $.ajax({
+            type: "GET",
+            url: "/AdminPanel/ExcelExportUploadFilesResult?status=@ViewBag.status&dateFrom=@ViewBag.dateFrom&dateTo=@ViewBag.dateTo",
+            cache: false,
+            success: function (data) {
+                window.location = '/AdminPanel/DownloadUploadFilesResult';
+            },
+            error: function (data) {
+                alert("มีบางอย่างผิดปกติ...", 3000, 'rounded');
+            }
+        });
+    }
+</script>
+
+

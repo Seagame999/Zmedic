@@ -9,6 +9,7 @@ namespace Zmedic.Controllers
     [HandleError]
     public class HomeController : Controller
     {
+        //------------------------------------- หน้าแรก -------------------------------------------------------
         public ActionResult Index()
         {
             return View();

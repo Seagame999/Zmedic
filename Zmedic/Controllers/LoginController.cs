@@ -15,6 +15,7 @@ namespace Zmedic.Controllers
     {
         AccZmedicEntities _context = new AccZmedicEntities();
 
+        //------------------------------------- เข้าสู่ระบบ -------------------------------------------------------
         // GET: Login
         [Route("Ubx3BD")]
         public ActionResult Index()
@@ -56,6 +57,7 @@ namespace Zmedic.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //------------------------------------- เปลี่ยนพาสเวิร์ด -------------------------------------------------------
         public ActionResult ChangePassword(int id)
         {
             if (Session["Role"] != null && Session["Role"].Equals("1"))

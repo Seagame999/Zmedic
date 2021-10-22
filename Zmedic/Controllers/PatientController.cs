@@ -21,6 +21,7 @@ namespace Zmedic.Controllers
         //    return View();
         //}
 
+        //------------------------------------- ค้นหาผลแลป -------------------------------------------------------
         public ActionResult PatientLabSearch()
         {
             return View();
@@ -72,6 +73,8 @@ namespace Zmedic.Controllers
             return View();
         }
 
+        //------------------------------------- เคลียร์ไฟล์PDF -------------------------------------------------------
+
         public ActionResult ClearPdfFileTemp()
         {
             if (Session["Role"] != null && Session["Role"].Equals("1"))
@@ -101,6 +104,8 @@ namespace Zmedic.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        //------------------------------------- SharePoint -------------------------------------------------------
 
         public string GetFileAndFolderFromSharepoint(string pdfFileName)
         {

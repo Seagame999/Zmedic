@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Linq.Dynamic;
+using System.Data;
+using OfficeOpenXml.Table;
+using System.IO;
 using Zmedic.Models;
 
 namespace Zmedic.Controllers
@@ -13,6 +15,8 @@ namespace Zmedic.Controllers
     public class AdminPanelController : Controller
     {
         AccZmedicEntities _context = new AccZmedicEntities();
+
+        //------------------------------------- หน้าหลัก -------------------------------------------------------
 
         public ActionResult Index()
         {
@@ -25,6 +29,8 @@ namespace Zmedic.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        //------------------------------------- นำเข้า Excel -------------------------------------------------------
 
         public ActionResult ImportExcelFile()
         {
@@ -414,13 +420,22 @@ namespace Zmedic.Controllers
 
         }
 
+        //------------------------------------- สืบค้นผลแลป -------------------------------------------------------
+
         public ActionResult PatientLabs()
         {
-            var patient = _context.Patient;
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                var patient = _context.Patient;
 
-            var patientResult = patient.ToList();
+                var patientResult = patient.ToList();
 
-            return View(patientResult);
+                return View(patientResult);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]
@@ -428,28 +443,276 @@ namespace Zmedic.Controllers
         {
             var patient = _context.Patient;
 
-            var patinetResult = patient.ToList();
+            var patientResult = patient.ToList();
 
             if (!string.IsNullOrEmpty(keywords))
             {
-                patinetResult = patient.Where(p => p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
+                patientResult = patient.Where(p => p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
+
+                ViewBag.keywords = keywords;
+
             }
 
-            if(!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
+            if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
             {
-                DateTime dateFromDT = Convert.ToDateTime(dateFrom);
+                DateTime dateFromDT = Convert.ToDateTime(dateFrom).AddYears(543);
 
-                DateTime dateToDT = Convert.ToDateTime(dateTo);
+                DateTime dateToDT = Convert.ToDateTime(dateTo).AddYears(543);
 
-                patinetResult = patient.Where(p => p.Collected_Date >= dateFromDT).Where(p => p.Collected_Date <= dateToDT).ToList();                          
+                patientResult = patient.Where(p => p.Collected_Date >= dateFromDT).Where(p => p.Collected_Date <= dateToDT).ToList();
+
+                ViewBag.dateFrom = dateFrom;
+                ViewBag.dateTo = dateTo;
 
             }
 
-            return View(patinetResult);
+            return View(patientResult);
         }
 
+        public ActionResult ExcelExportPatientLabs(string keywords, string dateFrom, string dateTo)
+        {
 
-        //สถานะ
+            var FileData = _context.Patient.ToList();
+
+            if (!string.IsNullOrEmpty(keywords))
+            {
+                FileData = _context.Patient.Where(p => p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
+            {
+                DateTime dateFromDT = Convert.ToDateTime(dateFrom).AddYears(543);
+
+                DateTime dateToDT = Convert.ToDateTime(dateTo).AddYears(543);
+
+                FileData = _context.Patient.Where(p => p.Collected_Date >= dateFromDT).Where(p => p.Collected_Date <= dateToDT).ToList();
+
+            }
+
+            try
+            {
+
+                DataTable Dt = new DataTable();
+                Dt.Columns.Add("ID Passport", typeof(string));
+                Dt.Columns.Add("LN", typeof(string));
+                Dt.Columns.Add("Collected Date", typeof(string));
+                Dt.Columns.Add("Lab Result File Name", typeof(string));
+                Dt.Columns.Add("MC File Name", typeof(string));
+                Dt.Columns.Add("Date of Birth", typeof(string));
+                Dt.Columns.Add("E-mail", typeof(string));
+                Dt.Columns.Add("Time Stamp", typeof(string));
+
+                foreach (var data in FileData)
+                {
+                    DataRow row = Dt.NewRow();
+                    row[0] = data.ID_Passport;
+                    row[1] = data.LN;
+                    row[2] = Convert.ToDateTime(data.Collected_Date).ToString("dd/MM/yyyy");
+                    row[3] = data.File_Name;
+                    row[4] = data.MC_File_Name;
+                    row[5] = data.DOB;
+                    row[6] = data.E_mail;
+                    row[7] = Convert.ToDateTime(data.Time_stamp).ToString("dd/MM/yyyy");
+                    Dt.Rows.Add(row);
+                }
+
+                var memoryStream = new MemoryStream();
+                using (var excelPackage = new ExcelPackage(memoryStream))
+                {
+                    var worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+                    worksheet.Cells["A1"].LoadFromDataTable(Dt, true, TableStyles.None);
+                    worksheet.Cells["A1:AN1"].Style.Font.Bold = true;
+                    worksheet.DefaultRowHeight = 18;
+
+
+                    worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(8).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.DefaultColWidth = 20;
+                    worksheet.Column(1).AutoFit();
+                    worksheet.Column(2).AutoFit();
+                    worksheet.Column(3).AutoFit();
+                    worksheet.Column(4).AutoFit();
+                    worksheet.Column(5).AutoFit();
+                    worksheet.Column(6).AutoFit();
+                    worksheet.Column(7).AutoFit();
+                    worksheet.Column(8).AutoFit();
+
+                    Session["DownloadExcel_FileManager"] = excelPackage.GetAsByteArray();
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public ActionResult DownloadPatientLabs()
+        {
+
+            if (Session["DownloadExcel_FileManager"] != null)
+            {
+                byte[] data = Session["DownloadExcel_FileManager"] as byte[];
+                var fileName = "PatienLabs" + "_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
+                return File(data, "application/octet-stream", fileName);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+
+        //------------------------------------- ประวัติการอัพโหลดไฟล์Excel -------------------------------------------------------
+
+        public ActionResult UploadFilesResult()
+        {
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                var uploadFiles = _context.Upload;
+
+                var uploadFilesResult = uploadFiles.ToList();
+
+                return View(uploadFilesResult);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UploadFilesResult(string status, string dateFrom, string dateTo)
+        {
+            var uploadFiles = _context.Upload;
+
+            var uploadFilesResult = uploadFiles.ToList();
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                uploadFilesResult = uploadFiles.Where(u => u.Upload_Reuslt.Equals(status)).ToList();
+
+                ViewBag.status = status;
+            }
+
+            if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
+            {
+                DateTime dateFromDT = Convert.ToDateTime(dateFrom).AddYears(543);
+
+                DateTime dateToDT = Convert.ToDateTime(dateTo).AddYears(543);
+
+                uploadFilesResult = uploadFiles.Where(u => u.Upload_Date >= dateFromDT).Where(u => u.Upload_Date <= dateToDT).ToList();
+
+                ViewBag.dateFrom = dateFrom;
+                ViewBag.dateTo = dateTo;
+
+            }
+
+            return View(uploadFilesResult);
+
+        }
+
+        public ActionResult ExcelExportUploadFilesResult(string status, string dateFrom, string dateTo)
+        {
+
+            var FileData = _context.Upload.ToList();
+
+            if (!string.IsNullOrEmpty(status))
+            {
+                FileData = _context.Upload.Where(u => u.Upload_Reuslt.Equals(status)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
+            {
+                DateTime dateFromDT = Convert.ToDateTime(dateFrom).AddYears(543);
+
+                DateTime dateToDT = Convert.ToDateTime(dateTo).AddYears(543);
+
+                FileData = _context.Upload.Where(u => u.Upload_Date >= dateFromDT).Where(u => u.Upload_Date <= dateToDT).ToList();
+
+            }
+
+            try
+            {
+
+                DataTable Dt = new DataTable();
+                Dt.Columns.Add("Upload Date", typeof(string));
+                Dt.Columns.Add("File Name", typeof(string));
+                Dt.Columns.Add("Number of Records", typeof(string));
+                Dt.Columns.Add("Number of Uploads Success", typeof(string));
+                Dt.Columns.Add("Number of Uploads Fails", typeof(string));
+                Dt.Columns.Add("Upload By", typeof(string));
+                Dt.Columns.Add("Upload Result", typeof(string));
+
+                foreach (var data in FileData)
+                {
+                    DataRow row = Dt.NewRow();
+                    row[0] = Convert.ToDateTime(data.Upload_Date).ToString("dd/MM/yyyy");
+                    row[1] = data.Upload_file_name;
+                    row[2] = data.Number_of_Records;
+                    row[3] = data.Number_of_Success;
+                    row[4] = data.Number_of_Fails;
+                    row[5] = data.User;
+                    row[6] = data.Upload_Reuslt;
+                    Dt.Rows.Add(row);
+                }
+
+                var memoryStream = new MemoryStream();
+                using (var excelPackage = new ExcelPackage(memoryStream))
+                {
+                    var worksheet = excelPackage.Workbook.Worksheets.Add("Sheet1");
+                    worksheet.Cells["A1"].LoadFromDataTable(Dt, true, TableStyles.None);
+                    worksheet.Cells["A1:AN1"].Style.Font.Bold = true;
+                    worksheet.DefaultRowHeight = 18;
+
+
+                    worksheet.Column(1).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(2).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(3).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(4).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(5).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(6).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.Column(7).Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Left;
+                    worksheet.DefaultColWidth = 20;
+                    worksheet.Column(1).AutoFit();
+                    worksheet.Column(2).AutoFit();
+                    worksheet.Column(3).AutoFit();
+                    worksheet.Column(4).AutoFit();
+                    worksheet.Column(5).AutoFit();
+                    worksheet.Column(6).AutoFit();
+                    worksheet.Column(7).AutoFit();
+
+                    Session["DownloadExcel_FileManager"] = excelPackage.GetAsByteArray();
+                    return Json("", JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public ActionResult DownloadUploadFilesResult()
+        {
+
+            if (Session["DownloadExcel_FileManager"] != null)
+            {
+                byte[] data = Session["DownloadExcel_FileManager"] as byte[];
+                var fileName = "UploadFilesResult" + "_" + DateTime.Now.ToString("ddMMyyyy_HHmmss") + ".xlsx";
+                return File(data, "application/octet-stream", fileName);
+            }
+            else
+            {
+                return new EmptyResult();
+            }
+        }
+
+        //------------------------------------- สถานะต่าง ๆ -------------------------------------------------------
 
         public ActionResult ImportSuccess()
         {
