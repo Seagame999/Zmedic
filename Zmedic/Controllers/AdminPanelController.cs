@@ -447,7 +447,7 @@ namespace Zmedic.Controllers
 
             if (!string.IsNullOrEmpty(keywords))
             {
-                patientResult = patient.Where(p => p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
+                patientResult = patient.Where(p => p.File_Name.Contains(keywords) || p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
 
                 ViewBag.keywords = keywords;
 
@@ -476,7 +476,7 @@ namespace Zmedic.Controllers
 
             if (!string.IsNullOrEmpty(keywords))
             {
-                FileData = _context.Patient.Where(p => p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
+                FileData = _context.Patient.Where(p => p.File_Name.Contains(keywords) || p.ID_Passport.Equals(keywords) || p.LN.Contains(keywords)).ToList();
             }
 
             if (!string.IsNullOrEmpty(dateFrom) && !string.IsNullOrEmpty(dateTo))
