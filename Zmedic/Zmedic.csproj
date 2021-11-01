@@ -441,6 +441,8 @@
     <Content Include="Views\AdminPanel\FileNotSupport.cshtml" />
     <Content Include="Views\AdminPanel\PatientLabs.cshtml" />
     <Content Include="Views\AdminPanel\UploadFilesResult.cshtml" />
+    <Content Include="Views\AdminPanel\EditPatientLab.cshtml" />
+    <Content Include="Views\AdminPanel\EditSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

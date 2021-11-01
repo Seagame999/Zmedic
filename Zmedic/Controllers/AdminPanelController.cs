@@ -568,6 +568,50 @@ namespace Zmedic.Controllers
             }
         }
 
+        public ActionResult EditPatientLab(int id)
+        {
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                var dataPatientLab = _context.Patient.Where(p => p.Id == id).SingleOrDefault();
+                return View(dataPatientLab);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditPatientLab(int id, Patient patient)
+        {
+            var dataPatientLab = _context.Patient.FirstOrDefault(p => p.Id == id);
+
+            if (dataPatientLab != null)
+            {
+                dataPatientLab.ID_Passport = patient.ID_Passport;
+                dataPatientLab.DOB = patient.DOB;
+
+                if(patient.MC_File_Name != null)
+                {
+                    dataPatientLab.MC_File_Name = "MC_" + dataPatientLab.File_Name;
+                }
+                else
+                {
+                    dataPatientLab.MC_File_Name = null;
+                }
+
+                dataPatientLab.E_mail = patient.E_mail;
+
+                _context.SaveChanges();
+                return RedirectToAction("EditSuccess", "AdminPanel");
+            }
+            else
+            {
+                return RedirectToAction("PatientLabs", "AdminPanel");
+            }
+
+        }
+
         //------------------------------------- ประวัติการอัพโหลดไฟล์Excel -------------------------------------------------------
 
         public ActionResult UploadFilesResult()
@@ -751,6 +795,18 @@ namespace Zmedic.Controllers
         }
 
         public ActionResult FileNotSupport()
+        {
+            if (Session["Role"] != null && Session["Role"].Equals("1"))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        public ActionResult EditSuccess()
         {
             if (Session["Role"] != null && Session["Role"].Equals("1"))
             {

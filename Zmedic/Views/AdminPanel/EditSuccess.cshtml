@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "แก้ไขเรียบร้อยแล้ว";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    window.setTimeout(function () {
+        window.location.href = '@Url.Action("PatientLabs", "AdminPanel")';
+    }, 3000);
+</script>
+
+<div class="container">
+    <h2 class="text-success">แก้ไขเรียบร้อยแล้ว กำลังนำกลับ...</h2>
+
+    <a class="btn btn-primary mt-3" href="@Url.Action("PatientLabs","Adminpanel")">ตกลง</a>
+</div>
+

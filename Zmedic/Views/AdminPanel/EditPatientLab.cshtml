@@ -1,0 +1,59 @@
+﻿@model Zmedic.Models.Patient
+
+@{
+    ViewBag.Title = "จัดการข้อมูลผลแลป";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="back-to-top"></div>
+
+<div class="page-section">
+    <div class="container sidebar-block">
+
+        <h4 class="sidebar-title">จัดการข้อมูลผลแลปของ ID: @Model.ID_Passport | รหัสLN: @Model.LN</h4>
+        @using (Html.BeginForm())
+        {
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ID_Passport, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-12">
+                    @Html.EditorFor(model => model.ID_Passport, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DOB, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="font-weight-bold">ปีเป็นรูปแบบคริสต์ศักราช (ค.ศ.) เช่น 1/1/2021</label>
+                <div class="col-12">
+                    @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control" } })
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MC_File_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="font-weight-bold">หากมีใบรับรองแพทย์ ให้ใส่คำว่า "มี" | หากไม่มีใบรับรองแพทย์ ให้ช่อง "ว่างเปล่า"</label>
+                <div class="col-12">
+                    @Html.EditorFor(model => model.MC_File_Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.E_mail, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-12">
+                    @Html.EditorFor(model => model.E_mail, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-12">
+                    <input type="submit" value="ยืนยันการแก้ไข" class="btn btn-primary btn-block" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

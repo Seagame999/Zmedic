@@ -113,6 +113,7 @@
                             <th>Date of Birth</th>
                             <th>E-mail</th>
                             <th>Time Stamp</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -127,6 +128,7 @@
                                 <td>@Html.DisplayFor(modelItem => item.DOB)</td>
                                 <td>@Html.DisplayFor(modelItem => item.E_mail)</td>
                                 <td>@Convert.ToDateTime(item.Time_stamp).ToString("dd/MM/yyyy")</td>
+                                <td><a href="@Url.Action("EditPatientLab"+"/"+item.Id, "AdminPanel")" class="btn btn-outline-info btn-xs" target="_blank">จัดการ</a></td>
                             </tr>
                         }
                     </tbody>
