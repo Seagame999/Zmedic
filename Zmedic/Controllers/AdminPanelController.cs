@@ -600,7 +600,14 @@ namespace Zmedic.Controllers
                     dataPatientLab.MC_File_Name = null;
                 }
 
-                dataPatientLab.E_mail = patient.E_mail;
+                if(patient.E_mail != null)
+                {
+                    dataPatientLab.E_mail = patient.E_mail;
+                }
+                else
+                {
+                    dataPatientLab.E_mail = null;
+                }
 
                 _context.SaveChanges();
                 return RedirectToAction("EditSuccess", "AdminPanel");

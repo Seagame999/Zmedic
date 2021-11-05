@@ -42,7 +42,7 @@ namespace Zmedic.Controllers
 
                 var patientReportResult = patientReport.Where(p => p.Data_Status == true
                 && p.DOB == dateOfBirth
-                && p.ID_Passport.Contains(sixIdInput)).ToList();
+                && p.ID_Passport.Contains(sixIdInput)).OrderByDescending(p => p.Id).ToList();
 
                 if (patientReportResult.Count == 0)
                 {

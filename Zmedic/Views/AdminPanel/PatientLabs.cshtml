@@ -9,6 +9,8 @@
 
 <script type="text/javascript" charset="utf8" src="~/AssetsTheme/DataTables/datatables.js"></script>
 
+<script src="//cdn.datatables.net/plug-ins/1.10.11/sorting/date-eu.js" type="text/javascript"></script>
+
 <script>
     $(function () {
         $("#keywords").keyup(function () {
@@ -167,6 +169,7 @@
             "processing": true,
             "responsive": false,
             "order": [[7, "desc"]],
+            "columnDefs": [{ "targets": 7, "type": "date-eu" }],
             "language": {
                 "processing": "รอสักครู่...",
                 "search": "ค้นหาในตาราง:",
@@ -175,6 +178,7 @@
                     "previous": "ก่อนหน้า"
                 },
                 "info": "แสดง _START_ ถึง _END_ จาก _TOTAL_ เรคคอร์ด",
+                "infoEmpty": "แสดง 0 ถึง 0 จาก 0 เรคคอร์ด",
                 "lengthMenu": "แสดง _MENU_ เรคคอร์ด",
                 "emptyTable": "ไม่พบข้อมูล",
                 "infoFiltered": "(กรองจากทั้งหมด _MAX_ เรคคอร์ด)",
