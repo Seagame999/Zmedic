@@ -66,11 +66,8 @@
             <div class="navbar-collapse" id="navbarSupport">
                 @*collapse*@
                 <ul class="navbar-nav ml-auto">
-                    @*<li class="nav-item">
-                        <a class="nav-link text-dark" href="@Url.Action("Index","Home")">หน้าหลัก</a>
-                    </li>*@
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="@Url.Action("PatientLabSearch","Patient")"><i class="mdi mdi-24px mdi-clipboard-text-search-outline"></i>  ตรวจสอบผลแลป (Check Lab Result)</a>
+                        <a class="nav-link btn btn-success text-white mt-1" href="@Url.Action("PatientLabSearch","Patient")"><i class="mdi mdi-24px mdi-clipboard-text-search-outline"></i>  ตรวจสอบผลแลป (Check Lab Result)</a>
                     </li>
                     @if (Session["Role"] != null && Session["Role"].Equals("1"))
                     {
