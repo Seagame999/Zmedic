@@ -348,6 +348,8 @@
     <Content Include="AssetsTheme\img\ImgWebsite\post2.jpg" />
     <Content Include="AssetsTheme\img\ImgWebsite\post3.jpg" />
     <Content Include="AssetsTheme\img\ImgWebsite\post4.jpg" />
+    <Content Include="AssetsTheme\img\ImgWebsite\post5.jpg" />
+    <Content Include="AssetsTheme\img\ImgWebsite\post6.jpg" />
     <Content Include="AssetsTheme\img\mobile_app.png" />
     <Content Include="AssetsTheme\img\person\person_1.jpg" />
     <Content Include="AssetsTheme\img\person\person_2.jpg" />
