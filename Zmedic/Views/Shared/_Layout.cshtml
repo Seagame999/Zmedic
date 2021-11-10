@@ -48,8 +48,7 @@
                 <div class="col-sm-4 text-right text-sm">
                     <div class="social-mini-button">
                         <a href="https://www.facebook.com/accmedlab" target="_blank"><span class="mai-logo-facebook-f"></span></a>
-                        <a href="#"><span class="mai-logo-twitter"></span></a>
-                        <a href="#"><span class="mai-logo-instagram"></span></a>
+                        <a href="https://www.instagram.com/accmedicallab"><span class="mai-logo-instagram"></span></a>
                     </div>
                 </div>
             </div> <!-- .row -->
@@ -67,7 +66,7 @@
                 @*collapse*@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link btn btn-success text-white mt-1" href="@Url.Action("PatientLabSearch","Patient")"><i class="mdi mdi-24px mdi-clipboard-text-search-outline"></i>  ตรวจสอบผลแลป (Check Lab Result)</a>
+                        <a class="nav-link btn btn-primary text-white mt-1" href="@Url.Action("PatientLabSearch","Patient")"><i class="mdi mdi-24px mdi-clipboard-text-search-outline"></i>  ตรวจสอบผลแลป (Check Lab Result)</a>
                     </li>
                     @if (Session["Role"] != null && Session["Role"].Equals("1"))
                     {
